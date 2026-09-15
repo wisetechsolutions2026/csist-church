@@ -118,8 +118,8 @@ header.site-header.scrolled .header-inner {
 header.site-header.scrolled .brand .logo-badge { width: 38px; height: 38px; }
 .brand img { height: 26px; width: auto; transition: height 0.3s ease; filter: none; opacity: 0.92; }
 header.site-header.scrolled .brand img { height: 22px; }
-.brand-text .site-title { font-size: 1.05rem; margin: 0; line-height: 1.15; color: var(--ink-3); }
-.brand-text .site-sub { font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--sapphire); letter-spacing: 0.14em; text-transform: uppercase; }
+.brand-text .site-title { display: block; font-size: 1.05rem; margin: 0; line-height: 1.25; color: var(--ink-3); }
+.brand-text .site-sub { display: block; font-family: 'Inter', sans-serif; font-size: 0.62rem; color: var(--sapphire); letter-spacing: 0.14em; text-transform: uppercase; }
 
 nav.main-nav ul { list-style: none; display: flex; align-items: center; gap: 2px; margin: 0; padding: 0; flex-wrap: wrap; }
 nav.main-nav a {

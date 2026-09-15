@@ -28,7 +28,7 @@ function navlink(string $file, string $label, string $current, string $base): st
         <img src="<?= $base ?>assets/img/logo-header.png" alt="<?= h(setting('site_name')) ?> logo">
       </span>
       <span class="brand-text">
-        <span class="site-title"><?= h(setting('site_name')) ?></span><br>
+        <span class="site-title"><?= h(setting('site_name')) ?></span>
         <span class="site-sub"><?= h(setting('site_location')) ?></span>
       </span>
     </a>
