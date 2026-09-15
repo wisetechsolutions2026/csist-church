@@ -16,6 +16,21 @@ function navlink(string $file, string $label, string $current, string $base): st
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= isset($pageTitle) ? h($pageTitle) . ' — ' : '' ?><?= h(setting('site_name')) ?></title>
 <meta name="description" content="<?= h(setting('site_name')) ?>, <?= h(setting('site_location')) ?> — <?= h(setting('tagline')) ?>">
+<?php
+$pageUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$ogImage = 'https://' . $_SERVER['HTTP_HOST'] . $base . 'assets/img/gallery/church-history/Untitled-design-2020-05-01T201522.258-1024x614.jpg';
+$ogTitle = (isset($pageTitle) ? $pageTitle . ' — ' : '') . setting('site_name');
+$ogDesc = setting('site_name') . ', ' . setting('site_location') . ' — ' . setting('tagline');
+?>
+<meta property="og:type" content="website">
+<meta property="og:url" content="<?= h($pageUrl) ?>">
+<meta property="og:title" content="<?= h($ogTitle) ?>">
+<meta property="og:description" content="<?= h($ogDesc) ?>">
+<meta property="og:image" content="<?= h($ogImage) ?>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<?= h($ogTitle) ?>">
+<meta name="twitter:description" content="<?= h($ogDesc) ?>">
+<meta name="twitter:image" content="<?= h($ogImage) ?>">
 <link rel="icon" type="image/png" href="<?= $base ?>assets/img/logo-header.png">
 <link rel="apple-touch-icon" href="<?= $base ?>assets/img/logo-header.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
