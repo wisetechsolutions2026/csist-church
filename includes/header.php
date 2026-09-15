@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__ . '/config.php';
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
 $base = base_url();
 $current = basename($_SERVER['SCRIPT_NAME']);
 function navlink(string $file, string $label, string $current, string $base): string {
