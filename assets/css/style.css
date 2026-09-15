@@ -150,11 +150,11 @@ nav.main-nav a:hover, nav.main-nav a.active { color: var(--sapphire); background
   .brand { min-width: 0; gap: 8px; }
   .brand .logo-badge { width: 36px; height: 36px; }
   .brand img { height: 20px; }
-  .brand-text { min-width: 0; overflow: hidden; }
+  .brand-text { min-width: 0; }
   .brand-text .site-title {
-    font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;
+    font-size: 0.85rem; line-height: 1.25; white-space: normal; display: block;
   }
-  .brand-text .site-sub { display: none; }
+  .brand-text .site-sub { font-size: 0.55rem; }
   nav.main-nav { display: none; width: 100%; order: 4; }
   nav.main-nav.open {
     display: block; margin-top: 10px; background: rgba(255,252,244,0.98);
@@ -442,7 +442,7 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 }
 
 @media (max-width: 400px) {
-  .brand-text .site-title { max-width: 92px; font-size: 0.78rem; }
+  .brand-text .site-title { font-size: 0.78rem; }
   section { padding: 56px 0; }
   .card { padding: 26px 18px; }
   .fcard-body { padding: 18px; }
