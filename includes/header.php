@@ -16,6 +16,8 @@ function navlink(string $file, string $label, string $current, string $base): st
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= isset($pageTitle) ? h($pageTitle) . ' — ' : '' ?><?= h(setting('site_name')) ?></title>
 <meta name="description" content="<?= h(setting('site_name')) ?>, <?= h(setting('site_location')) ?> — <?= h(setting('tagline')) ?>">
+<link rel="icon" type="image/png" href="<?= $base ?>assets/img/logo-header.png">
+<link rel="apple-touch-icon" href="<?= $base ?>assets/img/logo-header.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<?= $base ?>assets/css/style.css?v=<?= filemtime(__DIR__ . '/../assets/css/style.css') ?>">
