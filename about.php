@@ -19,13 +19,30 @@ function initials(string $name): string {
 </div>
 
 <section>
-  <div class="container" style="max-width: 820px;">
+  <div class="container">
     <span class="section-eyebrow reveal">Since the 1990s</span>
     <h2 class="section-title reveal">Our History</h2>
     <div class="divider reveal"><span></span></div>
-    <?php foreach (explode("\n\n", setting('history')) as $i => $para): ?>
-      <p class="reveal"><?= h($para) ?></p>
-    <?php endforeach; ?>
+    <div class="grid grid-2" style="align-items: center; gap: 50px;">
+      <div class="reveal">
+        <?php foreach (explode("\n\n", setting('history')) as $para): ?>
+          <p><?= h($para) ?></p>
+        <?php endforeach; ?>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <img src="<?= $base ?>assets/img/gallery/church-history/Untitled-design-2020-05-01T201522.258-1024x614.jpg" alt="CSI St. Matthew's Church building" style="border-radius: 14px; width: 100%; box-shadow: var(--shadow);">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="container">
+    <div class="stats-strip reveal">
+      <div><div class="stat-num">700+</div><div class="stat-label">Families</div></div>
+      <div><div class="stat-num">3</div><div class="stat-label">Sunday Services</div></div>
+      <div><div class="stat-num">1990s</div><div class="stat-label">Founded</div></div>
+    </div>
   </div>
 </section>
 
@@ -45,12 +62,6 @@ function initials(string $name): string {
       </div>
       <?php endwhile; ?>
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="container reveal">
-    <img src="<?= $base ?>assets/img/gallery/church-history/Untitled-design-2020-05-01T201522.258-1024x614.jpg" alt="Church history" style="border-radius: 10px; max-width: 760px; margin: 0 auto; box-shadow: var(--shadow-lux);">
   </div>
 </section>
 
