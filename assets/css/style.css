@@ -171,19 +171,6 @@ nav.main-nav a:hover, nav.main-nav a.active { color: var(--sapphire); background
   .nav-toggle { display: block; flex-shrink: 0; padding: 4px 6px; }
 }
 
-@media (max-width: 400px) {
-  .brand-text .site-title { max-width: 92px; font-size: 0.78rem; }
-  section { padding: 56px 0; }
-  .card { padding: 26px 18px; }
-  .fcard-body { padding: 18px; }
-  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-  .gallery-grid img { height: 130px; }
-  .magazine-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .magazine-card { padding: 18px 12px; }
-  blockquote.verse { font-size: 1.15rem; }
-  .page-hero { padding: 150px 20px 60px; }
-}
-
 /* HERO SLIDER */
 .hero-slider { position: relative; min-height: 96vh; overflow: hidden; color: #fff; background: var(--ink); }
 .hero-slider .slide {
@@ -452,4 +439,17 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .lightbox-prev { left: 8px; }
   .lightbox-next { right: 8px; }
   .lightbox-close { top: 12px; right: 12px; width: 38px; height: 38px; }
+}
+
+@media (max-width: 400px) {
+  .brand-text .site-title { max-width: 92px; font-size: 0.78rem; }
+  section { padding: 56px 0; }
+  .card { padding: 26px 18px; }
+  .fcard-body { padding: 18px; }
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+  .gallery-grid img { height: 130px; }
+  .magazine-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .magazine-card { padding: 18px 12px; }
+  blockquote.verse { font-size: 1.15rem; }
+  .page-hero { padding: 150px 20px 60px; }
 }
