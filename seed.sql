@@ -80,6 +80,7 @@ INSERT INTO gallery_images (category_id, filename, alt) VALUES
 ((SELECT id FROM gallery_categories WHERE slug='church-event'), '333.jpg', 'Harvest Festival');
 
 INSERT INTO magazines (title, period, filename, sort_order) VALUES
+('Monthly Magazine', 'September 2026', 'September-2026.pdf', 0),
 ('Monthly Magazine', 'June 2021', 'June-2021.pdf', 1),
 ('Monthly Magazine', 'August 2020', 'August-2020.pdf', 2),
 ('Monthly Magazine', 'July 2020', 'July2020.pdf', 3),
