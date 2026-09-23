@@ -12,7 +12,7 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 INSERT INTO leaders (role, name, contact, sort_order) VALUES
 ('Presbyter & Chairman', 'Rev. C. Samuel Jebakumar, MSW., Mth', '9080303965', 1),
 ('Secretary', 'Mr. Albert Kings Bell', '9941545732', 2),
-('Treasurer', 'Mr. P. Horsley Solomon', '9940210252', 3);
+('Treasurer', 'Mr. P. Moses Daniel Raj', '9444223631', 3);
 
 INSERT INTO fellowships (slug, title, tagline, description, gallery_slug, sort_order) VALUES
 ('mens-fellowship', "Men's Fellowship", 'We keep kneeling to seek the beauty of the Lord', 'The Men''s Fellowship brings together the men of our congregation for prayer, Bible study, and fellowship, strengthening their walk of faith together.', 'mens-fellowship', 1),
