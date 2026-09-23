@@ -375,7 +375,19 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 .magazine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 22px; }
 .magazine-card { background: var(--paper-card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 20px; text-align: center; box-shadow: var(--shadow); transition: transform 0.35s ease, box-shadow 0.35s ease; }
 .magazine-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 30px 60px -22px rgba(10,14,26,0.4); }
-.magazine-card .icon { font-size: 2.8rem; margin-bottom: 12px; }
+.pdf-icon {
+  width: 68px; height: 68px; margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(242,182,50,0.16), transparent 70%);
+  border: 1px solid rgba(242,182,50,0.35);
+  transition: transform 0.35s cubic-bezier(.2,.8,.3,1), box-shadow 0.35s ease;
+}
+.pdf-icon svg { width: 34px; height: 34px; filter: drop-shadow(0 4px 10px rgba(58,99,200,0.35)); }
+.magazine-card:hover .pdf-icon {
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 0 0 6px rgba(242,182,50,0.12);
+}
 
 .video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 14px; box-shadow: var(--shadow); }
 .video-embed iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
