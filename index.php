@@ -63,7 +63,6 @@ $slides = [
         <span class="service-time-value">6:30 PM</span>
       </div>
     </div>
-    <a class="btn btn-outline service-flash-cta" href="<?= $base ?>live-streaming.php">&#9658; Join via Live Streaming</a>
   </div>
 </div>
 
