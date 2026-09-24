@@ -56,14 +56,18 @@ $anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' 
 <div class="service-flash-wrap">
   <?php if ($birthday): ?>
   <div class="celebration-card reveal">
-    <?php if (!empty($birthday['photo'])): ?>
-      <img class="celebration-photo" src="<?= $base ?>assets/img/celebrations/<?= h($birthday['photo']) ?>" alt="<?= h($birthday['name']) ?>">
-    <?php else: ?>
-      <span class="celebration-icon">&#127874;</span>
-    <?php endif; ?>
-    <span class="celebration-label">Happy Birthday</span>
-    <span class="celebration-name"><?= h($birthday['name']) ?></span>
-    <span class="celebration-date"><?= h($birthday['occasion_date']) ?></span>
+    <div class="celebration-photo-wrap">
+      <?php if (!empty($birthday['photo'])): ?>
+        <img class="celebration-photo" src="<?= $base ?>assets/img/celebrations/<?= h($birthday['photo']) ?>" alt="<?= h($birthday['name']) ?>">
+      <?php else: ?>
+        <span class="celebration-icon">&#127874;</span>
+      <?php endif; ?>
+    </div>
+    <div class="celebration-body">
+      <span class="celebration-label">Happy Birthday</span>
+      <span class="celebration-name"><?= h($birthday['name']) ?></span>
+      <span class="celebration-date"><?= h($birthday['occasion_date']) ?></span>
+    </div>
   </div>
   <?php endif; ?>
 
@@ -88,14 +92,18 @@ $anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' 
 
   <?php if ($anniversary): ?>
   <div class="celebration-card reveal">
-    <?php if (!empty($anniversary['photo'])): ?>
-      <img class="celebration-photo" src="<?= $base ?>assets/img/celebrations/<?= h($anniversary['photo']) ?>" alt="<?= h($anniversary['name']) ?>">
-    <?php else: ?>
-      <span class="celebration-icon">&#128141;</span>
-    <?php endif; ?>
-    <span class="celebration-label">Happy Anniversary</span>
-    <span class="celebration-name"><?= h($anniversary['name']) ?></span>
-    <span class="celebration-date"><?= h($anniversary['occasion_date']) ?></span>
+    <div class="celebration-photo-wrap">
+      <?php if (!empty($anniversary['photo'])): ?>
+        <img class="celebration-photo" src="<?= $base ?>assets/img/celebrations/<?= h($anniversary['photo']) ?>" alt="<?= h($anniversary['name']) ?>">
+      <?php else: ?>
+        <span class="celebration-icon">&#128141;</span>
+      <?php endif; ?>
+    </div>
+    <div class="celebration-body">
+      <span class="celebration-label">Happy Anniversary</span>
+      <span class="celebration-name"><?= h($anniversary['name']) ?></span>
+      <span class="celebration-date"><?= h($anniversary['occasion_date']) ?></span>
+    </div>
   </div>
   <?php endif; ?>
 </div>
