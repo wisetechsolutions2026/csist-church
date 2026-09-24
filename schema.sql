@@ -61,6 +61,7 @@ CREATE TABLE celebrations (
   type ENUM('birthday','anniversary') NOT NULL,
   name VARCHAR(150) NOT NULL,
   occasion_date VARCHAR(50) NOT NULL,
+  photo VARCHAR(255) DEFAULT NULL,
   is_active TINYINT(1) NOT NULL DEFAULT 1,
   sort_order INT DEFAULT 0
 ) ENGINE=InnoDB;
