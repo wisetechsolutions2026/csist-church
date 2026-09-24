@@ -475,11 +475,6 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 .service-flash-card {
   position: relative;
   max-width: 620px; width: 100%;
-  background:
-    linear-gradient(180deg, rgba(10,14,26,0.55) 0%, rgba(10,14,26,0.78) 55%, rgba(10,14,26,0.92) 100%),
-    url('../img/slider/service-worship.jpg');
-  background-size: cover;
-  background-position: center 30%;
   border-radius: 20px;
   padding: 40px 36px 32px;
   text-align: center;
@@ -487,8 +482,20 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55);
   border: 1px solid rgba(242,182,50,0.35);
   animation: flashGlow 3s ease-in-out infinite;
-  overflow: hidden;
 }
+.service-flash-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(10,14,26,0.55) 0%, rgba(10,14,26,0.78) 55%, rgba(10,14,26,0.92) 100%),
+    url('../img/slider/service-worship.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  overflow: hidden;
+  z-index: 0;
+}
+.service-flash-card > * { position: relative; z-index: 1; }
 @keyframes flashGlow {
   0%, 100% { box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55), 0 0 0 0 rgba(242,182,50,0.35); }
   50% { box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55), 0 0 0 10px rgba(242,182,50,0); }
