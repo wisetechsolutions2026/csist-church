@@ -47,6 +47,26 @@ $slides = [
   <div class="slider-dots"></div>
 </div>
 
+<div class="service-flash-wrap">
+  <div class="service-flash-card reveal">
+    <span class="service-flash-ribbon">This Sunday</span>
+    <div class="service-flash-date">27<sup>th</sup> September 2026</div>
+    <div class="service-flash-times">
+      <div class="service-time-badge">
+        <span class="service-time-icon">&#9728;&#65039;</span>
+        <span class="service-time-label">Morning Service</span>
+        <span class="service-time-value">8:30 AM</span>
+      </div>
+      <div class="service-time-badge">
+        <span class="service-time-icon">&#127769;</span>
+        <span class="service-time-label">Evening Service</span>
+        <span class="service-time-value">6:30 PM</span>
+      </div>
+    </div>
+    <a class="btn btn-outline service-flash-cta" href="<?= $base ?>live-streaming.php">&#9658; Join via Live Streaming</a>
+  </div>
+</div>
+
 <section class="dark">
   <div class="container">
     <div class="stats-strip reveal">

@@ -465,3 +465,62 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   blockquote.verse { font-size: 1.15rem; }
   .page-hero { padding: 150px 20px 60px; }
 }
+
+/* Upcoming service flash card */
+.service-flash-wrap {
+  position: relative; z-index: 10;
+  display: flex; justify-content: center;
+  margin: -46px 24px 0;
+}
+.service-flash-card {
+  position: relative;
+  max-width: 620px; width: 100%;
+  background: radial-gradient(circle at 20% 0%, var(--ink-3), var(--ink) 75%);
+  border-radius: 20px;
+  padding: 40px 36px 32px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55);
+  border: 1px solid rgba(242,182,50,0.35);
+  animation: flashGlow 3s ease-in-out infinite;
+}
+@keyframes flashGlow {
+  0%, 100% { box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55), 0 0 0 0 rgba(242,182,50,0.35); }
+  50% { box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55), 0 0 0 10px rgba(242,182,50,0); }
+}
+.service-flash-ribbon {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--glass-gradient); color: #fff;
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 8px 22px; border-radius: 30px;
+  box-shadow: 0 10px 22px -8px rgba(138,79,209,0.6);
+  white-space: nowrap;
+}
+.service-flash-date {
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700;
+  font-size: clamp(1.5rem, 3.6vw, 2rem);
+  color: var(--amber-soft);
+  margin: 14px 0 24px;
+}
+.service-flash-times {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-bottom: 26px;
+}
+.service-time-badge {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(242,182,50,0.25);
+  border-radius: 14px;
+  padding: 18px 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.service-time-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.service-time-label { font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #cfc6ac; }
+.service-time-value { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.5rem; color: #fff; }
+.service-flash-cta { font-size: 0.85rem; padding: 12px 26px; }
+
+@media (max-width: 700px) {
+  .service-flash-wrap { margin-top: -34px; }
+  .service-flash-card { padding: 32px 20px 26px; border-radius: 18px; }
+  .service-time-value { font-size: 1.25rem; }
+}
