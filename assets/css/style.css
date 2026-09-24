@@ -475,7 +475,11 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 .service-flash-card {
   position: relative;
   max-width: 620px; width: 100%;
-  background: radial-gradient(circle at 20% 0%, var(--ink-3), var(--ink) 75%);
+  background:
+    linear-gradient(180deg, rgba(10,14,26,0.55) 0%, rgba(10,14,26,0.78) 55%, rgba(10,14,26,0.92) 100%),
+    url('../img/slider/service-worship.jpg');
+  background-size: cover;
+  background-position: center 30%;
   border-radius: 20px;
   padding: 40px 36px 32px;
   text-align: center;
@@ -483,6 +487,7 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55);
   border: 1px solid rgba(242,182,50,0.35);
   animation: flashGlow 3s ease-in-out infinite;
+  overflow: hidden;
 }
 @keyframes flashGlow {
   0%, 100% { box-shadow: 0 30px 70px -20px rgba(10,14,26,0.55), 0 0 0 0 rgba(242,182,50,0.35); }
@@ -508,8 +513,10 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   margin-bottom: 26px;
 }
 .service-time-badge {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(242,182,50,0.25);
+  background: rgba(10,14,26,0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(242,182,50,0.3);
   border-radius: 14px;
   padding: 18px 10px;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
