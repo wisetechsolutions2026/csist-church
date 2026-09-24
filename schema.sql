@@ -54,3 +54,13 @@ CREATE TABLE magazines (
   filename VARCHAR(255),
   sort_order INT DEFAULT 0
 ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS celebrations;
+CREATE TABLE celebrations (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  type ENUM('birthday','anniversary') NOT NULL,
+  name VARCHAR(150) NOT NULL,
+  occasion_date VARCHAR(50) NOT NULL,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  sort_order INT DEFAULT 0
+) ENGINE=InnoDB;

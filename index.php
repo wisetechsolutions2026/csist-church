@@ -47,24 +47,51 @@ $slides = [
   <div class="slider-dots"></div>
 </div>
 
+<?php
+$serviceEnabled = setting('service_card_enabled') === '1';
+$birthday = db()->query("SELECT * FROM celebrations WHERE type='birthday' AND is_active=1 ORDER BY sort_order, id DESC LIMIT 1")->fetch_assoc();
+$anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' AND is_active=1 ORDER BY sort_order, id DESC LIMIT 1")->fetch_assoc();
+?>
+<?php if ($serviceEnabled || $birthday || $anniversary): ?>
 <div class="service-flash-wrap">
+  <?php if ($birthday): ?>
+  <div class="celebration-card reveal">
+    <span class="celebration-icon">&#127874;</span>
+    <span class="celebration-label">Happy Birthday</span>
+    <span class="celebration-name"><?= h($birthday['name']) ?></span>
+    <span class="celebration-date"><?= h($birthday['occasion_date']) ?></span>
+  </div>
+  <?php endif; ?>
+
+  <?php if ($serviceEnabled): ?>
   <div class="service-flash-card reveal">
     <span class="service-flash-ribbon">This Sunday</span>
-    <div class="service-flash-date">27<sup>th</sup> September 2026</div>
+    <div class="service-flash-date"><?= h(setting('service_date')) ?></div>
     <div class="service-flash-times">
       <div class="service-time-badge">
         <span class="service-time-icon">&#9728;&#65039;</span>
         <span class="service-time-label">Morning Service</span>
-        <span class="service-time-value">8:30 AM</span>
+        <span class="service-time-value"><?= h(setting('service_morning')) ?></span>
       </div>
       <div class="service-time-badge">
         <span class="service-time-icon">&#127769;</span>
         <span class="service-time-label">Evening Service</span>
-        <span class="service-time-value">6:30 PM</span>
+        <span class="service-time-value"><?= h(setting('service_evening')) ?></span>
       </div>
     </div>
   </div>
+  <?php endif; ?>
+
+  <?php if ($anniversary): ?>
+  <div class="celebration-card reveal">
+    <span class="celebration-icon">&#128141;</span>
+    <span class="celebration-label">Happy Anniversary</span>
+    <span class="celebration-name"><?= h($anniversary['name']) ?></span>
+    <span class="celebration-date"><?= h($anniversary['occasion_date']) ?></span>
+  </div>
+  <?php endif; ?>
 </div>
+<?php endif; ?>
 
 <section class="dark">
   <div class="container">

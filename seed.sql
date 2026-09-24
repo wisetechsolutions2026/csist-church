@@ -7,6 +7,10 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('address', '8/28, CSI Church St., Jayanagar, Porur, Chennai'),
 ('email', 'csistmatthewschurchporur@gmail.com'),
 ('youtube_channel', 'https://www.youtube.com/channel/UCExRpRYYyuJdRfER1-UNuog'),
+('service_card_enabled', '1'),
+('service_date', '27th September 2026'),
+('service_morning', '8:30 AM'),
+('service_evening', '6:30 PM'),
 ('history', "Church of South India Trust Association (CSI TA) was formed in 1947. Under CSI TA there are 24 Dioceses situated in South India and Sri Lanka, each consisting of 500 to 1000 churches, nearly 4 million people in total.\n\nOur church, CSI St. Matthew's Church, is located in Porur, Chennai, Tamil Nadu, India, and is a unit of the Madras Diocese, which is affiliated to the Church of South India Trust Association (CSITA).\n\nCSI St. Matthew's Church, Porur was started with very few families as members in the 1990s. It grew steadily, and by 2020 over 700 families had joined as members. The church now gathers its believers every Sunday for worship across three different services at different timings, from morning to evening.\n\nApart from worship, several other events and meetings are conducted throughout the year. The whole purpose of this is to spread the gospel to all and be ready for His second coming.");
 
 INSERT INTO leaders (role, name, contact, sort_order) VALUES
@@ -85,3 +89,7 @@ INSERT INTO magazines (title, period, filename, sort_order) VALUES
 ('Monthly Magazine', 'August 2020', 'August-2020.pdf', 2),
 ('Monthly Magazine', 'July 2020', 'July2020.pdf', 3),
 ('Monthly Magazine', 'May 2020', 'May-2020-Magazine-1.pdf', 4);
+
+INSERT INTO celebrations (type, name, occasion_date, is_active, sort_order) VALUES
+('birthday', 'Add a name in Admin', '1 January', 0, 1),
+('anniversary', 'Add a name in Admin', '1 January', 0, 1);

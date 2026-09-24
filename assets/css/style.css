@@ -469,8 +469,31 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 /* Upcoming service flash card */
 .service-flash-wrap {
   position: relative; z-index: 10;
-  display: flex; justify-content: center;
+  display: flex; justify-content: center; align-items: center;
+  gap: 22px; flex-wrap: wrap;
   margin: -46px 24px 0;
+}
+.celebration-card {
+  position: relative;
+  width: 220px;
+  background: radial-gradient(circle at 25% 15%, var(--ink-3), var(--ink) 80%);
+  border: 1px solid rgba(242,182,50,0.35);
+  border-radius: 18px;
+  padding: 24px 18px;
+  text-align: center;
+  color: #fff;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  box-shadow: 0 24px 55px -20px rgba(10,14,26,0.5);
+}
+.celebration-icon { font-size: 2.2rem; }
+.celebration-label {
+  font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--amber-soft);
+}
+.celebration-name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.2rem; }
+.celebration-date { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #cfc6ac; }
+@media (max-width: 950px) {
+  .celebration-card { order: 3; width: 100%; max-width: 300px; }
 }
 .service-flash-card {
   position: relative;
