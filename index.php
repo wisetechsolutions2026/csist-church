@@ -66,7 +66,7 @@ $anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' 
     <div class="celebration-body">
       <span class="celebration-label">Happy Birthday</span>
       <span class="celebration-name"><?= h($birthday['name']) ?></span>
-      <span class="celebration-date"><?= h($birthday['occasion_date']) ?></span>
+      <span class="celebration-date"><?= h(format_ordinal_date($birthday['occasion_date'])) ?></span>
     </div>
   </div>
   <?php endif; ?>
@@ -102,7 +102,7 @@ $anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' 
     <div class="celebration-body">
       <span class="celebration-label">Happy Anniversary</span>
       <span class="celebration-name"><?= h($anniversary['name']) ?></span>
-      <span class="celebration-date"><?= h($anniversary['occasion_date']) ?></span>
+      <span class="celebration-date"><?= h(format_ordinal_date($anniversary['occasion_date'])) ?></span>
     </div>
   </div>
   <?php endif; ?>

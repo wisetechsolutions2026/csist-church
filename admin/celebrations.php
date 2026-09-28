@@ -94,8 +94,9 @@ $base = base_url();
     </select>
     <label>Name</label>
     <input type="text" name="name" value="<?= h($editRow['name'] ?? '') ?>" required>
-    <label>Date (e.g. 27 September)</label>
-    <input type="text" name="occasion_date" value="<?= h($editRow['occasion_date'] ?? '') ?>" required>
+    <label>Date</label>
+    <input type="date" name="occasion_date" value="<?= h($editRow['occasion_date'] ?? '') ?>" required>
+    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h(!empty($editRow['occasion_date']) ? format_ordinal_date($editRow['occasion_date']) : '—') ?></strong></p>
 
     <label>Photo (optional)</label>
     <?php if ($editRow && !empty($editRow['photo'])): ?>
@@ -127,7 +128,7 @@ $base = base_url();
       </td>
       <td><?= $row['type'] === 'anniversary' ? 'Anniversary' : 'Birthday' ?></td>
       <td><?= h($row['name']) ?></td>
-      <td><?= h($row['occasion_date']) ?></td>
+      <td><?= h(format_ordinal_date($row['occasion_date'])) ?></td>
       <td><span class="badge <?= $row['is_active'] ? 'badge-on' : 'badge-off' ?>"><?= $row['is_active'] ? 'Visible' : 'Hidden' ?></span></td>
       <td class="row-actions">
         <a href="?edit=<?= (int)$row['id'] ?>">Edit</a>
