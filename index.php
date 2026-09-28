@@ -74,7 +74,7 @@ $anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' 
   <?php if ($serviceEnabled): ?>
   <div class="service-flash-card reveal">
     <span class="service-flash-ribbon">This Sunday</span>
-    <div class="service-flash-date"><?= h(setting('service_date')) ?></div>
+    <div class="service-flash-date"><?= h(format_ordinal_date(setting('service_date'))) ?></div>
     <div class="service-flash-times">
       <div class="service-time-badge">
         <span class="service-time-icon">&#9728;&#65039;</span>

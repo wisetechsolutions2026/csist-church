@@ -32,6 +32,27 @@ function setting(string $key, string $default = ''): string {
     return $cache[$key] ?? $default;
 }
 
+function format_ordinal_date(string $ymd): string {
+    if ($ymd === '') {
+        return '';
+    }
+    $ts = strtotime($ymd);
+    if ($ts === false) {
+        return $ymd;
+    }
+    $day = (int)date('j', $ts);
+    if ($day % 10 === 1 && $day !== 11) {
+        $suffix = 'st';
+    } elseif ($day % 10 === 2 && $day !== 12) {
+        $suffix = 'nd';
+    } elseif ($day % 10 === 3 && $day !== 13) {
+        $suffix = 'rd';
+    } else {
+        $suffix = 'th';
+    }
+    return $day . $suffix . date(' F Y', $ts);
+}
+
 function base_url(): string {
     $dir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
     return $dir === '' ? '/' : $dir . '/';

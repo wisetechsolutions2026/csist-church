@@ -35,8 +35,9 @@ $evening = $get('service_evening');
   <?php if ($flash): ?><div class="flash"><?= h($flash) ?></div><?php endif; ?>
   <form method="post">
     <label><input type="checkbox" name="enabled" <?= $enabled === '1' ? 'checked' : '' ?>> Show this card on the home page</label>
-    <label>Date (e.g. 27th September 2026)</label>
-    <input type="text" name="service_date" value="<?= h($date) ?>" required>
+    <label>Service Date</label>
+    <input type="date" name="service_date" value="<?= h($date) ?>" required>
+    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h($date ? format_ordinal_date($date) : '—') ?></strong></p>
     <label>Morning Service Time</label>
     <input type="text" name="service_morning" value="<?= h($morning) ?>" required>
     <label>Evening Service Time</label>
