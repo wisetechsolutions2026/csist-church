@@ -115,6 +115,7 @@ $base = base_url();
 
 <div class="admin-card">
   <h2>All Cards</h2>
+  <div class="table-scroll">
   <table>
     <tr><th>Photo</th><th>Type</th><th>Name</th><th>Date</th><th>Status</th><th></th></tr>
     <?php while ($row = $all->fetch_assoc()): ?>
@@ -141,6 +142,7 @@ $base = base_url();
     </tr>
     <?php endwhile; ?>
   </table>
+  </div>
 </div>
 
 <?php require __DIR__ . '/_layout_bottom.php'; ?>
