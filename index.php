@@ -131,17 +131,19 @@ $anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' 
     </blockquote>
     <div class="grid grid-3">
       <?php $i = 0; $leaders->data_seek(0); while ($l = $leaders->fetch_assoc()): $i++; ?>
-      <div class="card reveal reveal-delay-<?= $i ?>">
-        <div class="avatar-ring">
+      <div class="card leader-card reveal reveal-delay-<?= $i ?>">
+        <div class="leader-photo-wrap">
           <?php if (!empty($l['photo'])): ?>
-            <img class="avatar-photo" src="<?= $base ?>assets/img/leaders/<?= h($l['photo']) ?>" alt="<?= h($l['name']) ?>">
+            <img class="leader-photo" src="<?= $base ?>assets/img/leaders/<?= h($l['photo']) ?>" alt="<?= h($l['name']) ?>">
           <?php else: ?>
-            <div class="avatar-inner"><?= h(initials($l['name'])) ?></div>
+            <span class="leader-initials"><?= h(initials($l['name'])) ?></span>
           <?php endif; ?>
         </div>
-        <div class="role"><?= h($l['role']) ?></div>
-        <h3><?= h($l['name']) ?></h3>
-        <p>Ph: <?= h($l['contact']) ?></p>
+        <div class="leader-body">
+          <div class="role"><?= h($l['role']) ?></div>
+          <h3><?= h($l['name']) ?></h3>
+          <p>Ph: <?= h($l['contact']) ?></p>
+        </div>
       </div>
       <?php endwhile; ?>
     </div>
