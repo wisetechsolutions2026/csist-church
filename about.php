@@ -55,7 +55,13 @@ function initials(string $name): string {
     <div class="grid grid-3">
       <?php $i = 0; while ($l = $leaders->fetch_assoc()): $i++; ?>
       <div class="card reveal reveal-delay-<?= $i ?>">
-        <div class="avatar-ring"><div class="avatar-inner"><?= h(initials($l['name'])) ?></div></div>
+        <div class="avatar-ring">
+          <?php if (!empty($l['photo'])): ?>
+            <img class="avatar-photo" src="<?= $base ?>assets/img/leaders/<?= h($l['photo']) ?>" alt="<?= h($l['name']) ?>">
+          <?php else: ?>
+            <div class="avatar-inner"><?= h(initials($l['name'])) ?></div>
+          <?php endif; ?>
+        </div>
         <div class="role"><?= h($l['role']) ?></div>
         <h3><?= h($l['name']) ?></h3>
         <p>Ph: <?= h($l['contact']) ?></p>

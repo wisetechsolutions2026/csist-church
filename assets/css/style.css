@@ -301,6 +301,9 @@ section.dark .section-sub { color: #b8ae90; }
   color: var(--amber-soft); display: flex; align-items: center; justify-content: center;
   font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700;
 }
+.card .avatar-ring .avatar-photo {
+  width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;
+}
 
 .fcard { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); background: var(--paper-card); border: 1px solid var(--border); transition: transform 0.4s ease, box-shadow 0.4s ease; }
 .fcard:hover { transform: translateY(-8px); box-shadow: 0 34px 70px -24px rgba(10,14,26,0.35); }

@@ -18,6 +18,7 @@ CREATE TABLE leaders (
   role VARCHAR(100) NOT NULL,
   name VARCHAR(150) NOT NULL,
   contact VARCHAR(50),
+  photo VARCHAR(255) DEFAULT NULL,
   sort_order INT DEFAULT 0
 ) ENGINE=InnoDB;
 

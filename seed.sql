@@ -13,10 +13,10 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('service_evening', '6:30 PM'),
 ('history', "Church of South India Trust Association (CSI TA) was formed in 1947. Under CSI TA there are 24 Dioceses situated in South India and Sri Lanka, each consisting of 500 to 1000 churches, nearly 4 million people in total.\n\nOur church, CSI St. Matthew's Church, is located in Porur, Chennai, Tamil Nadu, India, and is a unit of the Madras Diocese, which is affiliated to the Church of South India Trust Association (CSITA).\n\nCSI St. Matthew's Church, Porur was started with very few families as members in the 1990s. It grew steadily, and by 2020 over 700 families had joined as members. The church now gathers its believers every Sunday for worship across three different services at different timings, from morning to evening.\n\nApart from worship, several other events and meetings are conducted throughout the year. The whole purpose of this is to spread the gospel to all and be ready for His second coming.");
 
-INSERT INTO leaders (role, name, contact, sort_order) VALUES
-('Presbyter & Chairman', 'Rev. C. Samuel Jebakumar, MSW., Mth', '9080303965', 1),
-('Secretary', 'Mr. Albert Kings Bell', '9941545732', 2),
-('Treasurer', 'Mr. P. Moses Daniel Raj', '9444223631', 3);
+INSERT INTO leaders (role, name, contact, photo, sort_order) VALUES
+('Presbyter & Chairman', 'Rev. C. Samuel Jebakumar, MSW., Mth', '9080303965', NULL, 1),
+('Secretary', 'Mr. Albert Kings Bell', '9941545732', 'albert-kings-bell.jpg', 2),
+('Treasurer', 'Mr. P. Moses Daniel Raj', '9444223631', NULL, 3);
 
 INSERT INTO fellowships (slug, title, tagline, description, gallery_slug, sort_order) VALUES
 ('mens-fellowship', "Men's Fellowship", 'We keep kneeling to seek the beauty of the Lord', 'The Men''s Fellowship brings together the men of our congregation for prayer, Bible study, and fellowship, strengthening their walk of faith together.', 'mens-fellowship', 1),
