@@ -38,7 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newPhoto = handle_photo_upload($_FILES['photo'] ?? null);
         $removePhoto = isset($_POST['remove_photo']);
 
-        if ($id > 0) {
+        if ($type === 'birthday' && strpos($name, '&') !== false) {
+            $flash = 'Only one name is allowed per birthday card. Please create separate cards for each person.';
+        } elseif ($id > 0) {
             if ($newPhoto !== null) {
                 $stmt = db()->prepare("UPDATE celebrations SET type=?, name=?, occasion_date=?, is_active=?, photo=? WHERE id=?");
                 $stmt->bind_param('sssisi', $type, $name, $occasion_date, $is_active, $newPhoto, $id);
@@ -53,8 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = db()->prepare("INSERT INTO celebrations (type, name, occasion_date, is_active, photo, sort_order) VALUES (?, ?, ?, ?, ?, 0)");
             $stmt->bind_param('sssis', $type, $name, $occasion_date, $is_active, $newPhoto);
         }
-        $stmt->execute();
-        $flash = 'Saved.';
+        if (empty($flash)) {
+            $stmt->execute();
+            $flash = 'Saved.';
+        }
     } elseif ($action === 'delete') {
         $id = (int)($_POST['id'] ?? 0);
         $row = db()->query("SELECT photo FROM celebrations WHERE id=" . $id)->fetch_assoc();
@@ -94,6 +98,7 @@ $base = base_url();
     </select>
     <label>Name</label>
     <input type="text" name="name" value="<?= h($editRow['name'] ?? '') ?>" required>
+    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Birthdays: one name per card. Anniversaries: you may enter both spouses' names joined with "&amp;" (e.g. "Mr. A & Mrs. B").</p>
     <label>Date</label>
     <input type="date" name="occasion_date" value="<?= h($editRow['occasion_date'] ?? '') ?>" required>
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h(!empty($editRow['occasion_date']) ? format_ordinal_date($editRow['occasion_date']) : '—') ?></strong></p>
