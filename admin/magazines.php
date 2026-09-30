@@ -76,7 +76,7 @@ if (isset($_GET['edit'])) {
 }
 
 $all = db()->query("SELECT * FROM magazines ORDER BY sort_order");
-$base = base_url();
+$base = '../';
 ?>
 
 <div class="admin-card">

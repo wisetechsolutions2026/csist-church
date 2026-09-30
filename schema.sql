@@ -19,6 +19,9 @@ CREATE TABLE leaders (
   name VARCHAR(150) NOT NULL,
   contact VARCHAR(50),
   photo VARCHAR(255) DEFAULT NULL,
+  photo_pos_x INT DEFAULT 50,
+  photo_pos_y INT DEFAULT 20,
+  photo_zoom INT DEFAULT 100,
   sort_order INT DEFAULT 0
 ) ENGINE=InnoDB;
 

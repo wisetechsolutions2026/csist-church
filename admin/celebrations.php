@@ -82,7 +82,7 @@ if (isset($_GET['edit'])) {
 }
 
 $all = db()->query("SELECT * FROM celebrations ORDER BY type, sort_order, id DESC");
-$base = base_url();
+$base = '../';
 ?>
 
 <div class="admin-card">

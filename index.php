@@ -137,7 +137,13 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
       <div class="card leader-card reveal reveal-delay-<?= $i ?>">
         <div class="leader-photo-wrap">
           <?php if (!empty($l['photo'])): ?>
-            <img class="leader-photo" src="<?= $base ?>assets/img/leaders/<?= h($l['photo']) ?>" alt="<?= h($l['name']) ?>">
+            <?php
+              $lx = (int)($l['photo_pos_x'] ?? 50);
+              $ly = (int)($l['photo_pos_y'] ?? 20);
+              $lz = ((int)($l['photo_zoom'] ?? 100)) / 100;
+            ?>
+            <img class="leader-photo" src="<?= $base ?>assets/img/leaders/<?= h($l['photo']) ?>" alt="<?= h($l['name']) ?>"
+                 style="object-position: <?= $lx ?>% <?= $ly ?>%; transform: scale(<?= $lz ?>); transform-origin: <?= $lx ?>% <?= $ly ?>%;">
           <?php else: ?>
             <span class="leader-initials"><?= h(initials($l['name'])) ?></span>
           <?php endif; ?>
