@@ -323,6 +323,12 @@ section.dark .section-sub { color: #b8ae90; }
 .leader-body {
   padding: 22px 24px 32px;
 }
+.leader-body h3 {
+  font-size: 1.05rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .fcard { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); background: var(--paper-card); border: 1px solid var(--border); transition: transform 0.4s ease, box-shadow 0.4s ease; }
 .fcard:hover { transform: translateY(-8px); box-shadow: 0 34px 70px -24px rgba(10,14,26,0.35); }
