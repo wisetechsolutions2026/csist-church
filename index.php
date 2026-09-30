@@ -49,27 +49,37 @@ $slides = [
 
 <?php
 $serviceEnabled = setting('service_card_enabled') === '1';
-$birthday = db()->query("SELECT * FROM celebrations WHERE type='birthday' AND is_active=1 ORDER BY sort_order, id DESC LIMIT 1")->fetch_assoc();
-$anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' AND is_active=1 ORDER BY sort_order, id DESC LIMIT 1")->fetch_assoc();
+$birthdays = [];
+$res = db()->query("SELECT * FROM celebrations WHERE type='birthday' AND is_active=1 ORDER BY sort_order, id DESC");
+while ($row = $res->fetch_assoc()) { $birthdays[] = $row; }
+$anniversaries = [];
+$res = db()->query("SELECT * FROM celebrations WHERE type='anniversary' AND is_active=1 ORDER BY sort_order, id DESC");
+while ($row = $res->fetch_assoc()) { $anniversaries[] = $row; }
+
+function render_celebration_card(array $c, string $label, string $fallbackIcon, string $base): void {
+    ?>
+    <div class="celebration-card reveal">
+      <div class="celebration-photo-wrap">
+        <?php if (!empty($c['photo'])): ?>
+          <img class="celebration-photo" src="<?= $base ?>assets/img/celebrations/<?= h($c['photo']) ?>" alt="<?= h($c['name']) ?>">
+        <?php else: ?>
+          <span class="celebration-icon"><?= $fallbackIcon ?></span>
+        <?php endif; ?>
+      </div>
+      <div class="celebration-body">
+        <span class="celebration-label"><?= h($label) ?></span>
+        <span class="celebration-name"><?= h($c['name']) ?></span>
+        <span class="celebration-date"><?= h(format_ordinal_date($c['occasion_date'])) ?></span>
+      </div>
+    </div>
+    <?php
+}
 ?>
-<?php if ($serviceEnabled || $birthday || $anniversary): ?>
+<?php if ($serviceEnabled || $birthdays || $anniversaries): ?>
 <div class="service-flash-wrap">
-  <?php if ($birthday): ?>
-  <div class="celebration-card reveal">
-    <div class="celebration-photo-wrap">
-      <?php if (!empty($birthday['photo'])): ?>
-        <img class="celebration-photo" src="<?= $base ?>assets/img/celebrations/<?= h($birthday['photo']) ?>" alt="<?= h($birthday['name']) ?>">
-      <?php else: ?>
-        <span class="celebration-icon">&#127874;</span>
-      <?php endif; ?>
-    </div>
-    <div class="celebration-body">
-      <span class="celebration-label">Happy Birthday</span>
-      <span class="celebration-name"><?= h($birthday['name']) ?></span>
-      <span class="celebration-date"><?= h(format_ordinal_date($birthday['occasion_date'])) ?></span>
-    </div>
-  </div>
-  <?php endif; ?>
+  <?php foreach ($birthdays as $birthday): ?>
+    <?php render_celebration_card($birthday, 'Happy Birthday', '&#127874;', $base); ?>
+  <?php endforeach; ?>
 
   <?php if ($serviceEnabled): ?>
   <div class="service-flash-card reveal">
@@ -90,22 +100,9 @@ $anniversary = db()->query("SELECT * FROM celebrations WHERE type='anniversary' 
   </div>
   <?php endif; ?>
 
-  <?php if ($anniversary): ?>
-  <div class="celebration-card reveal">
-    <div class="celebration-photo-wrap">
-      <?php if (!empty($anniversary['photo'])): ?>
-        <img class="celebration-photo" src="<?= $base ?>assets/img/celebrations/<?= h($anniversary['photo']) ?>" alt="<?= h($anniversary['name']) ?>">
-      <?php else: ?>
-        <span class="celebration-icon">&#128141;</span>
-      <?php endif; ?>
-    </div>
-    <div class="celebration-body">
-      <span class="celebration-label">Happy Anniversary</span>
-      <span class="celebration-name"><?= h($anniversary['name']) ?></span>
-      <span class="celebration-date"><?= h(format_ordinal_date($anniversary['occasion_date'])) ?></span>
-    </div>
-  </div>
-  <?php endif; ?>
+  <?php foreach ($anniversaries as $anniversary): ?>
+    <?php render_celebration_card($anniversary, 'Happy Anniversary', '&#128141;', $base); ?>
+  <?php endforeach; ?>
 </div>
 <?php endif; ?>
 
