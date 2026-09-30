@@ -309,7 +309,7 @@ section.dark .section-sub { color: #b8ae90; }
 .card.leader-card { padding: 0; }
 .leader-photo-wrap {
   position: relative;
-  width: 100%; height: 220px;
+  width: 100%; height: 300px;
   display: flex; align-items: center; justify-content: center;
   background: radial-gradient(circle at 30% 25%, rgba(58,99,200,0.14), transparent 70%);
   border-bottom: 1px solid var(--border);
