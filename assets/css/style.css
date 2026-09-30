@@ -497,9 +497,13 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 /* Upcoming service flash card */
 .service-flash-wrap {
   position: relative; z-index: 10;
-  display: flex; justify-content: center; align-items: center;
+  display: flex; justify-content: center; align-items: flex-start;
   gap: 22px; flex-wrap: wrap;
   margin: -46px 24px 0;
+}
+.service-flash-wrap + .service-flash-wrap,
+.service-flash-wrap-below {
+  margin-top: 26px;
 }
 .celebration-card {
   position: relative;
@@ -540,6 +544,8 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   color: var(--amber-soft);
 }
 .celebration-name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.35rem; }
+.celebration-name.is-couple { font-size: 1.1rem; line-height: 1.35; }
+.celebration-name .couple-amp { display: block; font-size: 0.9rem; color: var(--amber-soft); margin: 2px 0; }
 .celebration-date { font-family: 'Inter', sans-serif; font-size: 0.82rem; color: #cfc6ac; }
 @media (max-width: 950px) {
   .celebration-card { order: 3; width: 100%; max-width: 320px; }
@@ -607,6 +613,8 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 
 @media (max-width: 700px) {
   .service-flash-wrap { margin-top: -34px; }
+  .service-flash-wrap + .service-flash-wrap,
+  .service-flash-wrap-below { margin-top: 20px; }
   .service-flash-card { padding: 32px 20px 26px; border-radius: 18px; }
   .service-time-value { font-size: 1.25rem; }
 }

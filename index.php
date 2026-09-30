@@ -68,20 +68,31 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
       </div>
       <div class="celebration-body">
         <span class="celebration-label"><?= h($label) ?></span>
-        <span class="celebration-name"><?= h($c['name']) ?></span>
+        <?php if (strpos($c['name'], '&') !== false): ?>
+          <?php [$p1, $p2] = array_map('trim', explode('&', $c['name'], 2)); ?>
+          <span class="celebration-name is-couple"><?= h($p1) ?><span class="couple-amp">&amp;</span><?= h($p2) ?></span>
+        <?php else: ?>
+          <span class="celebration-name"><?= h($c['name']) ?></span>
+        <?php endif; ?>
         <span class="celebration-date"><?= h(format_ordinal_date($c['occasion_date'])) ?></span>
       </div>
     </div>
     <?php
 }
 ?>
-<?php if ($serviceEnabled || $birthdays || $anniversaries): ?>
+<?php if ($birthdays || $anniversaries): ?>
 <div class="service-flash-wrap">
   <?php foreach ($birthdays as $birthday): ?>
     <?php render_celebration_card($birthday, 'Happy Birthday', '&#127874;', $base); ?>
   <?php endforeach; ?>
+  <?php foreach ($anniversaries as $anniversary): ?>
+    <?php render_celebration_card($anniversary, 'Happy Anniversary', '&#128141;', $base); ?>
+  <?php endforeach; ?>
+</div>
+<?php endif; ?>
 
-  <?php if ($serviceEnabled): ?>
+<?php if ($serviceEnabled): ?>
+<div class="service-flash-wrap<?= ($birthdays || $anniversaries) ? ' service-flash-wrap-below' : '' ?>">
   <div class="service-flash-card reveal">
     <span class="service-flash-ribbon">This Sunday</span>
     <div class="service-flash-date"><?= h(format_ordinal_date(setting('service_date'))) ?></div>
@@ -98,11 +109,6 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
       </div>
     </div>
   </div>
-  <?php endif; ?>
-
-  <?php foreach ($anniversaries as $anniversary): ?>
-    <?php render_celebration_card($anniversary, 'Happy Anniversary', '&#128141;', $base); ?>
-  <?php endforeach; ?>
 </div>
 <?php endif; ?>
 
