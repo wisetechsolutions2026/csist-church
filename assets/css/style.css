@@ -324,7 +324,7 @@ section.dark .section-sub { color: #b8ae90; }
   padding: 22px 24px 32px;
 }
 .leader-body h3 {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
