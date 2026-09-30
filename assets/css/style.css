@@ -291,18 +291,18 @@ section.dark .section-sub { color: #b8ae90; }
 .card h3 { margin-bottom: 6px; font-size: 1.4rem; }
 .card .role { color: var(--sapphire); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 14px; font-family: 'Inter', sans-serif; font-weight: 600; }
 .card .avatar-ring {
-  width: 88px; height: 88px; margin: 0 auto 18px; border-radius: 50%;
+  width: 92px; height: 92px; margin: 0 auto 18px; border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
   background: conic-gradient(from 180deg, var(--sapphire), var(--amethyst), var(--amber), var(--sapphire));
   padding: 3px;
 }
 .card .avatar-ring .avatar-inner {
-  width: 100%; height: 100%; border-radius: 50%; background: var(--ink);
+  width: 100%; height: 100%; border-radius: 13px; background: var(--ink);
   color: var(--amber-soft); display: flex; align-items: center; justify-content: center;
   font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700;
 }
 .card .avatar-ring .avatar-photo {
-  width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;
+  width: 100%; height: 100%; border-radius: 13px; object-fit: cover; object-position: top center; display: block;
 }
 
 .fcard { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); background: var(--paper-card); border: 1px solid var(--border); transition: transform 0.4s ease, box-shadow 0.4s ease; }
