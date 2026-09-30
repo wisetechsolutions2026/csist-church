@@ -60,8 +60,12 @@ $base = base_url();
   </div>
   <nav>
     <a href="index.php">Dashboard</a>
-    <a href="service.php">Sunday Service Card</a>
-    <a href="celebrations.php">Birthday / Anniversary</a>
+    <a href="settings.php">Site Info</a>
+    <a href="leaders.php">Leadership</a>
+    <a href="fellowships.php">Fellowships</a>
+    <a href="magazines.php">Magazines</a>
+    <a href="service.php">Sunday Service</a>
+    <a href="celebrations.php">Birthday / Anniv.</a>
     <a href="logout.php">Logout</a>
   </nav>
 </div>
