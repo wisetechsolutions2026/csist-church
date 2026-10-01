@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Site Info';
 require __DIR__ . '/_layout_top.php';
+require_super_admin();
 
 $flash = '';
 $fields = [

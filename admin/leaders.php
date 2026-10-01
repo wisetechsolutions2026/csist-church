@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Leadership';
 require __DIR__ . '/_layout_top.php';
+require_super_admin();
 
 $flash = '';
 $uploadDir = __DIR__ . '/../assets/img/leaders/';

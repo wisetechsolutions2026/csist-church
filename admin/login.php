@@ -11,9 +11,12 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
-    if (hash_equals(ADMIN_USERNAME, $username) && password_verify($password, ADMIN_PASSWORD_HASH)) {
+    $admin = ADMINS[$username] ?? null;
+    if ($admin && password_verify($password, $admin['hash'])) {
         session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
+        $_SESSION['admin_username'] = $username;
+        $_SESSION['admin_role'] = $admin['role'];
         header('Location: index.php');
         exit;
     }
