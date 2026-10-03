@@ -122,9 +122,7 @@ $base = '../';
       <option value="birthday" <?= (!$editRow || $editRow['type'] === 'birthday') ? 'selected' : '' ?>>Birthday</option>
       <option value="anniversary" <?= ($editRow && $editRow['type'] === 'anniversary') ? 'selected' : '' ?>>Wedding Anniversary</option>
     </select>
-    <label style="display:flex; align-items:center; gap:10px;">Name
-      <button type="button" id="addPerson" title="Add another name to this card" style="width:28px; height:28px; border-radius:50%; border:none; background:#3a63c8; color:#fff; font-size:1.2rem; line-height:1; cursor:pointer; padding:0;">+</button>
-    </label>
+    <label>Name</label>
     <div id="people">
 <?php foreach ($rows as $i => $p): ?>
       <div class="person-row">
@@ -135,11 +133,12 @@ $base = '../';
 <?php endforeach; ?>
         </select>
         <input type="text" name="pname[]" value="<?= h($p['name']) ?>" placeholder="Name" <?= $i === 0 ? 'required' : '' ?>>
-        <button type="button" class="rm-person" title="Remove">&times;</button>
+        <button type="button" class="add-person" title="Add another name to this card">+</button>
+        <button type="button" class="rm-person" title="Remove this name">&times;</button>
       </div>
 <?php endforeach; ?>
     </div>
-    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:6px;">Tap + beside "Name" to add another member to the same card (up to 4).</p>
+    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:6px;">Tap + after the name to add another member to the same card (up to 4).</p>
     <label>Date</label>
     <input type="date" name="occasion_date" value="<?= h($editRow['occasion_date'] ?? '') ?>" required>
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h(!empty($editRow['occasion_date']) ? format_ordinal_date($editRow['occasion_date']) : '—') ?></strong></p>
@@ -163,22 +162,30 @@ $base = '../';
   .person-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
   .person-row .title-sel { width:80px; flex:none; }
   .person-row input[type=text] { flex:1; min-width:0; }
-  .rm-person { background:none; border:1px solid #d8cdb0; border-radius:6px; width:36px; height:38px; font-size:1.2rem; cursor:pointer; color:#a52a47; flex:none; }
-  .person-row:first-child .rm-person { visibility:hidden; }
-  #addPerson:disabled { background:#b9c3dc !important; cursor:not-allowed !important; }
+  .rm-person { background:#fff; border:1px solid #d8cdb0; border-radius:6px; width:36px; height:38px; font-size:1.2rem; cursor:pointer; color:#a52a47; flex:none; }
+  .add-person { width:36px; height:38px; border-radius:6px; border:none; background:#3a63c8; color:#fff; font-size:1.4rem; line-height:1; cursor:pointer; padding:0; flex:none; }
+  .add-person:hover { background:#2e50a0; }
 </style>
 <script>
 (function(){
-  var box=document.getElementById('people'), add=document.getElementById('addPerson');
+  var box=document.getElementById('people');
   function rows(){ return box.querySelectorAll('.person-row'); }
-  function sync(){ add.disabled = rows().length>=4; }
-  add.addEventListener('click',function(){
-    if(rows().length>=4) return;
-    var c=rows()[0].cloneNode(true), inp=c.querySelector('input');
-    inp.value=''; inp.removeAttribute('required'); c.querySelector('select').value='';
-    box.appendChild(c); sync(); inp.focus();
+  function sync(){
+    var r=rows();
+    for(var i=0;i<r.length;i++){
+      r[i].querySelector('.add-person').style.display = (i===r.length-1 && r.length<4) ? '' : 'none';
+      r[i].querySelector('.rm-person').style.display = i>0 ? '' : 'none';
+    }
+  }
+  box.addEventListener('click',function(e){
+    if(e.target.classList.contains('add-person')){
+      var c=rows()[0].cloneNode(true), inp=c.querySelector('input');
+      inp.value=''; inp.removeAttribute('required'); c.querySelector('select').value='';
+      box.appendChild(c); sync(); inp.focus();
+    } else if(e.target.classList.contains('rm-person')){
+      e.target.closest('.person-row').remove(); sync();
+    }
   });
-  box.addEventListener('click',function(e){ if(e.target.classList.contains('rm-person')){ e.target.closest('.person-row').remove(); sync(); } });
   sync();
 })();
 </script>
