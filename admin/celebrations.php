@@ -26,23 +26,34 @@ function handle_photo_upload(?array $file): ?string {
     return $filename;
 }
 
+$allowedTitles = ['Mr.', 'Ms.', 'Mrs.', 'Dr.', 'Baby', 'Master'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action === 'save') {
         $id = (int)($_POST['id'] ?? 0);
         $type = $_POST['type'] === 'anniversary' ? 'anniversary' : 'birthday';
-        $name = trim($_POST['name'] ?? '');
+        $titles = $_POST['title'] ?? [];
+        $names = $_POST['pname'] ?? [];
+        $people = [];
+        foreach ($names as $i => $n) {
+            $n = trim(preg_replace('/\s+/', ' ', str_replace('&', ' ', (string)$n)));
+            if ($n === '') continue;
+            $t = trim((string)($titles[$i] ?? ''));
+            if (!in_array($t, $allowedTitles, true)) $t = '';
+            $people[] = trim($t . ' ' . $n);
+        }
+        if ($type === 'birthday') $people = array_slice($people, 0, 1);
+        $people = array_slice($people, 0, 2);
+        $name = implode(' & ', $people);
         $occasion_date = trim($_POST['occasion_date'] ?? '');
         $is_active = isset($_POST['is_active']) ? 1 : 0;
         $newPhoto = handle_photo_upload($_FILES['photo'] ?? null);
         $removePhoto = isset($_POST['remove_photo']);
 
-        $hasTwoNames = strpos($name, '&') !== false
-            || preg_match('/\s{2,}/', $name)
-            || preg_match('/\S\s+(Mr|Mrs|Ms|Miss|Baby|Master)\.?\s/i', $name);
-        if ($type === 'birthday' && $hasTwoNames) {
-            $flash = 'Only one name is allowed per birthday card. Please create separate cards for each person.';
+        if ($name === '') {
+            $flash = 'Please enter a name.';
         } elseif ($id > 0) {
             if ($newPhoto !== null) {
                 $stmt = db()->prepare("UPDATE celebrations SET type=?, name=?, occasion_date=?, is_active=?, photo=? WHERE id=?");
@@ -84,6 +95,19 @@ if (isset($_GET['edit'])) {
     $editRow = $stmt->get_result()->fetch_assoc();
 }
 
+$rows = [['title' => '', 'name' => '']];
+if ($editRow) {
+    $rows = [];
+    foreach (explode(' & ', $editRow['name']) as $part) {
+        $part = trim($part);
+        $title = '';
+        foreach ($allowedTitles as $t) {
+            if (stripos($part, $t . ' ') === 0) { $title = $t; $part = trim(substr($part, strlen($t))); break; }
+        }
+        $rows[] = ['title' => $title, 'name' => $part];
+    }
+}
+
 $all = db()->query("SELECT * FROM celebrations ORDER BY type, sort_order, id DESC");
 $base = '../';
 ?>
@@ -95,13 +119,27 @@ $base = '../';
     <input type="hidden" name="action" value="save">
     <input type="hidden" name="id" value="<?= $editRow ? (int)$editRow['id'] : 0 ?>">
     <label>Type</label>
-    <select name="type">
+    <select name="type" id="typeSel">
       <option value="birthday" <?= (!$editRow || $editRow['type'] === 'birthday') ? 'selected' : '' ?>>Birthday</option>
       <option value="anniversary" <?= ($editRow && $editRow['type'] === 'anniversary') ? 'selected' : '' ?>>Wedding Anniversary</option>
     </select>
     <label>Name</label>
-    <input type="text" name="name" value="<?= h($editRow['name'] ?? '') ?>" required>
-    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Birthdays: one name per card. Anniversaries: you may enter both spouses' names joined with "&amp;" (e.g. "Mr. A & Mrs. B").</p>
+    <div id="people">
+<?php foreach ($rows as $i => $p): ?>
+      <div class="person-row">
+        <select name="title[]" class="title-sel">
+          <option value="">--</option>
+<?php foreach ($allowedTitles as $t): ?>
+          <option value="<?= h($t) ?>" <?= $p['title'] === $t ? 'selected' : '' ?>><?= h($t) ?></option>
+<?php endforeach; ?>
+        </select>
+        <input type="text" name="pname[]" value="<?= h($p['name']) ?>" placeholder="Name" <?= $i === 0 ? 'required' : '' ?>>
+        <button type="button" class="rm-person" title="Remove">&times;</button>
+      </div>
+<?php endforeach; ?>
+    </div>
+    <button type="button" id="addPerson" class="btn btn-secondary" style="display:none; margin-top:6px;">+ Add spouse</button>
+    <p id="nameHint" style="font-size:0.8rem; color:#6b5a4d; margin-top:6px;"></p>
     <label>Date</label>
     <input type="date" name="occasion_date" value="<?= h($editRow['occasion_date'] ?? '') ?>" required>
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h(!empty($editRow['occasion_date']) ? format_ordinal_date($editRow['occasion_date']) : '—') ?></strong></p>
@@ -120,6 +158,34 @@ $base = '../';
     <?php if ($editRow): ?> <a class="btn btn-secondary" href="celebrations.php">Cancel</a><?php endif; ?>
   </form>
 </div>
+
+<style>
+  .person-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+  .person-row .title-sel { width:80px; flex:none; }
+  .person-row input[type=text] { flex:1; min-width:0; }
+  .rm-person { background:none; border:1px solid #d8cdb0; border-radius:6px; width:36px; height:38px; font-size:1.2rem; cursor:pointer; color:#a52a47; flex:none; }
+  .person-row:first-child .rm-person { visibility:hidden; }
+  @media (max-width: 600px) { #addPerson { width:auto; display:inline-block; } }
+</style>
+<script>
+(function(){
+  var typeSel=document.getElementById('typeSel'), box=document.getElementById('people'), add=document.getElementById('addPerson'), hint=document.getElementById('nameHint');
+  function rows(){ return box.querySelectorAll('.person-row'); }
+  function sync(){
+    var ann = typeSel.value==='anniversary';
+    add.style.display = (ann && rows().length<2) ? '' : 'none';
+    if(!ann){ for(var i=rows().length-1;i>0;i--) rows()[i].remove(); }
+    hint.textContent = ann ? 'Anniversary: one card with both spouses. Tap + Add spouse for the second name.' : 'Birthday: one name = one card. Add a separate card for each person.';
+  }
+  add.addEventListener('click',function(){
+    var c=rows()[0].cloneNode(true), inp=c.querySelector('input');
+    inp.value=''; inp.removeAttribute('required'); c.querySelector('select').value='';
+    box.appendChild(c); sync(); inp.focus();
+  });
+  box.addEventListener('click',function(e){ if(e.target.classList.contains('rm-person')){ e.target.closest('.person-row').remove(); sync(); } });
+  typeSel.addEventListener('change',sync); sync();
+})();
+</script>
 
 <div class="admin-card">
   <h2>All Cards</h2>
