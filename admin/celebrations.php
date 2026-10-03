@@ -44,8 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!in_array($t, $allowedTitles, true)) $t = '';
             $people[] = trim($t . ' ' . $n);
         }
-        if ($type === 'birthday') $people = array_slice($people, 0, 1);
-        $people = array_slice($people, 0, 2);
+        $people = array_slice($people, 0, 4);
         $name = implode(' & ', $people);
         $occasion_date = trim($_POST['occasion_date'] ?? '');
         $is_active = isset($_POST['is_active']) ? 1 : 0;
@@ -123,7 +122,9 @@ $base = '../';
       <option value="birthday" <?= (!$editRow || $editRow['type'] === 'birthday') ? 'selected' : '' ?>>Birthday</option>
       <option value="anniversary" <?= ($editRow && $editRow['type'] === 'anniversary') ? 'selected' : '' ?>>Wedding Anniversary</option>
     </select>
-    <label>Name</label>
+    <label style="display:flex; align-items:center; gap:10px;">Name
+      <button type="button" id="addPerson" title="Add another name to this card" style="width:28px; height:28px; border-radius:50%; border:none; background:#3a63c8; color:#fff; font-size:1.2rem; line-height:1; cursor:pointer; padding:0;">+</button>
+    </label>
     <div id="people">
 <?php foreach ($rows as $i => $p): ?>
       <div class="person-row">
@@ -138,8 +139,7 @@ $base = '../';
       </div>
 <?php endforeach; ?>
     </div>
-    <button type="button" id="addPerson" class="btn btn-secondary" style="display:none; margin-top:6px;">+ Add spouse</button>
-    <p id="nameHint" style="font-size:0.8rem; color:#6b5a4d; margin-top:6px;"></p>
+    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:6px;">Tap + beside "Name" to add another member to the same card (up to 4).</p>
     <label>Date</label>
     <input type="date" name="occasion_date" value="<?= h($editRow['occasion_date'] ?? '') ?>" required>
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h(!empty($editRow['occasion_date']) ? format_ordinal_date($editRow['occasion_date']) : '—') ?></strong></p>
@@ -165,25 +165,21 @@ $base = '../';
   .person-row input[type=text] { flex:1; min-width:0; }
   .rm-person { background:none; border:1px solid #d8cdb0; border-radius:6px; width:36px; height:38px; font-size:1.2rem; cursor:pointer; color:#a52a47; flex:none; }
   .person-row:first-child .rm-person { visibility:hidden; }
-  @media (max-width: 600px) { #addPerson { width:auto; display:inline-block; } }
+  #addPerson:disabled { background:#b9c3dc !important; cursor:not-allowed !important; }
 </style>
 <script>
 (function(){
-  var typeSel=document.getElementById('typeSel'), box=document.getElementById('people'), add=document.getElementById('addPerson'), hint=document.getElementById('nameHint');
+  var box=document.getElementById('people'), add=document.getElementById('addPerson');
   function rows(){ return box.querySelectorAll('.person-row'); }
-  function sync(){
-    var ann = typeSel.value==='anniversary';
-    add.style.display = (ann && rows().length<2) ? '' : 'none';
-    if(!ann){ for(var i=rows().length-1;i>0;i--) rows()[i].remove(); }
-    hint.textContent = ann ? 'Anniversary: one card with both spouses. Tap + Add spouse for the second name.' : 'Birthday: one name = one card. Add a separate card for each person.';
-  }
+  function sync(){ add.disabled = rows().length>=4; }
   add.addEventListener('click',function(){
+    if(rows().length>=4) return;
     var c=rows()[0].cloneNode(true), inp=c.querySelector('input');
     inp.value=''; inp.removeAttribute('required'); c.querySelector('select').value='';
     box.appendChild(c); sync(); inp.focus();
   });
   box.addEventListener('click',function(e){ if(e.target.classList.contains('rm-person')){ e.target.closest('.person-row').remove(); sync(); } });
-  typeSel.addEventListener('change',sync); sync();
+  sync();
 })();
 </script>
 

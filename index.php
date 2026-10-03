@@ -69,8 +69,8 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
       <div class="celebration-body">
         <span class="celebration-label"><?= h($label) ?></span>
         <?php if (strpos($c['name'], '&') !== false): ?>
-          <?php [$p1, $p2] = array_map('trim', explode('&', $c['name'], 2)); ?>
-          <span class="celebration-name is-couple"><?= h($p1) ?><span class="couple-amp">&amp;</span><?= h($p2) ?></span>
+          <?php $members = array_map('trim', explode('&', $c['name'])); ?>
+          <span class="celebration-name is-couple"><?php foreach ($members as $mi => $member): ?><?php if ($mi > 0): ?><span class="couple-amp">&amp;</span><?php endif; ?><?= h($member) ?><?php endforeach; ?></span>
         <?php else: ?>
           <span class="celebration-name"><?= h($c['name']) ?></span>
         <?php endif; ?>
