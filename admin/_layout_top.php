@@ -105,8 +105,8 @@ function nav_link(string $file, string $label): void {
     <?php nav_link('settings.php', 'Site Info'); ?>
     <?php nav_link('leaders.php', 'Leadership'); ?>
     <?php nav_link('fellowships.php', 'Fellowships'); ?>
-    <?php nav_link('magazines.php', 'Magazines'); ?>
     <?php endif; ?>
+    <?php nav_link('magazines.php', 'Magazines'); ?>
     <?php nav_link('service.php', 'Sunday Service'); ?>
     <?php nav_link('celebrations.php', 'Birthday / Anniv.'); ?>
     <a href="logout.php" class="logout">Logout</a>
