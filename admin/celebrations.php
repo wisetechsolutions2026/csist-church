@@ -38,7 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newPhoto = handle_photo_upload($_FILES['photo'] ?? null);
         $removePhoto = isset($_POST['remove_photo']);
 
-        if ($type === 'birthday' && strpos($name, '&') !== false) {
+        $hasTwoNames = strpos($name, '&') !== false
+            || preg_match('/\s{2,}/', $name)
+            || preg_match('/\S\s+(Mr|Mrs|Ms|Miss|Baby|Master)\.?\s/i', $name);
+        if ($type === 'birthday' && $hasTwoNames) {
             $flash = 'Only one name is allowed per birthday card. Please create separate cards for each person.';
         } elseif ($id > 0) {
             if ($newPhoto !== null) {
