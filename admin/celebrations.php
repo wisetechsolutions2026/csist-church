@@ -160,11 +160,13 @@ $base = '../';
 
 <style>
   .person-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
-  .person-row .title-sel { width:80px; flex:none; }
+  .person-row .title-sel { width:92px; flex:none; font-weight:600; }
   .person-row input[type=text] { flex:1; min-width:0; }
-  .rm-person { background:#fff; border:1px solid #d8cdb0; border-radius:6px; width:36px; height:38px; font-size:1.2rem; cursor:pointer; color:#a52a47; flex:none; }
-  .add-person { width:36px; height:38px; border-radius:6px; border:none; background:#3a63c8; color:#fff; font-size:1.4rem; line-height:1; cursor:pointer; padding:0; flex:none; }
-  .add-person:hover { background:#2e50a0; }
+  .rm-person, .add-person { width:44px; height:44px; border-radius:50%; font-size:1.4rem; line-height:1; cursor:pointer; padding:0; flex:none; transition:transform .2s, box-shadow .2s, background .2s; }
+  .rm-person { background:#fff; border:1px solid var(--border); color:var(--ruby); }
+  .rm-person:hover { background:#f3dfe0; }
+  .add-person { border:none; background:var(--grad); color:#fff; box-shadow:0 10px 22px -10px rgba(138,79,209,0.7); }
+  .add-person:hover { transform:scale(1.08); }
 </style>
 <script>
 (function(){
