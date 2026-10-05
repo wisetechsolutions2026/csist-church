@@ -624,3 +624,17 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .service-flash-card { padding: 32px 20px 26px; border-radius: 18px; }
   .service-time-value { font-size: 1.25rem; }
 }
+
+/* Long single names scroll back and forth inside the fixed card */
+.celebration-name .name-marquee { display: inline-block; white-space: nowrap; }
+.celebration-name.is-scrolling { align-items: flex-start; }
+.celebration-name.is-scrolling .name-marquee {
+  animation: nameScroll var(--scroll-time, 8s) ease-in-out infinite alternate;
+}
+@keyframes nameScroll {
+  0%, 18% { transform: translateX(0); }
+  82%, 100% { transform: translateX(var(--scroll-dist, 0)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .celebration-name.is-scrolling .name-marquee { animation: none; }
+}

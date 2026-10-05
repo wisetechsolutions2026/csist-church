@@ -138,20 +138,32 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-// Celebration cards keep identical size: shrink long names to fit their fixed box
+// Celebration cards keep identical size: long single names auto-scroll, multi-name blocks shrink
 function fitCelebrationNames() {
   document.querySelectorAll('.celebration-name').forEach(function (el) {
     el.style.fontSize = '';
-    var size = parseFloat(getComputedStyle(el).fontSize);
-    var range = document.createRange();
-    function overflows() {
-      range.selectNodeContents(el);
-      var rect = range.getBoundingClientRect();
-      return rect.width > el.clientWidth - 8 || rect.height > el.clientHeight + 1;
+    if (el.classList.contains('is-couple')) {
+      var size = parseFloat(getComputedStyle(el).fontSize);
+      while (el.scrollHeight > el.clientHeight + 1 && size > 10) {
+        size -= 0.5;
+        el.style.fontSize = size + 'px';
+      }
+      return;
     }
-    while (overflows() && size > 10) {
-      size -= 0.5;
-      el.style.fontSize = size + 'px';
+    var inner = el.querySelector('.name-marquee');
+    if (!inner) {
+      inner = document.createElement('span');
+      inner.className = 'name-marquee';
+      inner.textContent = el.textContent;
+      el.textContent = '';
+      el.appendChild(inner);
+    }
+    el.classList.remove('is-scrolling');
+    var overflow = inner.scrollWidth - el.clientWidth;
+    if (overflow > 0) {
+      el.style.setProperty('--scroll-dist', '-' + (overflow + 12) + 'px');
+      el.style.setProperty('--scroll-time', Math.max(5, (overflow + 12) / 22) + 's');
+      el.classList.add('is-scrolling');
     }
   });
 }
