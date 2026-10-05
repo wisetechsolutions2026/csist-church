@@ -159,6 +159,11 @@ function fitCelebrationNames() {
       el.appendChild(inner);
     }
     el.classList.remove('is-scrolling');
+    var size1 = parseFloat(getComputedStyle(el).fontSize);
+    while (inner.scrollWidth > el.clientWidth - 8 && size1 > 15) {
+      size1 -= 0.5;
+      el.style.fontSize = size1 + 'px';
+    }
     var overflow = inner.scrollWidth - el.clientWidth;
     if (overflow > 0) {
       el.style.setProperty('--scroll-dist', '-' + (overflow + 12) + 'px');
