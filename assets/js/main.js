@@ -176,32 +176,60 @@ window.addEventListener('load', fitCelebrationNames);
 window.addEventListener('resize', fitCelebrationNames);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitCelebrationNames);
 
-// Animated celebration cards: confetti + floating balloons/hearts inside every card
+// Animated celebration cards: balloons, confetti and splash bursts all over every card
 function initCelebrationFx() {
-  var colors = ['#f2b632', '#f7d685', '#3a63c8', '#8a4fd1', '#c8385a', '#ffffff'];
+  var colors = ['#f2b632', '#f7d685', '#3a63c8', '#8a4fd1', '#c8385a', '#ffffff', '#2fbf71'];
   document.querySelectorAll('.celebration-card').forEach(function (card) {
     if (card.querySelector('.card-fx')) return;
     var fx = document.createElement('div');
     fx.className = 'card-fx';
     fx.setAttribute('aria-hidden', 'true');
-    for (var i = 0; i < 16; i++) {
+
+    var label = card.querySelector('.celebration-label');
+    var isAnniv = label && /anniversary/i.test(label.textContent);
+
+    // splash bursts at random spots
+    for (var b = 0; b < 4; b++) {
+      var burst = document.createElement('div');
+      burst.className = 'burst';
+      burst.style.left = (12 + Math.random() * 76) + '%';
+      burst.style.top = (10 + Math.random() * 75) + '%';
+      burst.style.animationDelay = (b * 1.1 + Math.random() * 0.8) + 's';
+      for (var k = 0; k < 12; k++) {
+        var sp = document.createElement('b');
+        sp.style.setProperty('--a', (k * 30) + 'deg');
+        sp.style.setProperty('--dist', (34 + Math.random() * 30) + 'px');
+        sp.style.background = colors[(k + b) % colors.length];
+        burst.appendChild(sp);
+      }
+      fx.appendChild(burst);
+    }
+
+    // falling confetti
+    for (var i = 0; i < 28; i++) {
       var p = document.createElement('i');
       p.style.left = (Math.random() * 100) + '%';
       p.style.background = colors[i % colors.length];
       p.style.animationDelay = (Math.random() * 4) + 's';
-      p.style.animationDuration = (2.6 + Math.random() * 2.4) + 's';
-      p.style.setProperty('--sway', (Math.random() * 40 - 20) + 'px');
+      p.style.animationDuration = (2.4 + Math.random() * 2.6) + 's';
+      p.style.setProperty('--sway', (Math.random() * 50 - 25) + 'px');
+      p.style.width = (5 + Math.random() * 5) + 'px';
+      p.style.height = (8 + Math.random() * 8) + 'px';
       fx.appendChild(p);
     }
-    var label = card.querySelector('.celebration-label');
-    var isAnniv = label && /anniversary/i.test(label.textContent);
-    var icons = isAnniv ? ['💖', '✨', '💖'] : ['🎈', '🎉', '🎈'];
+
+    // balloons / hearts floating up across the whole card
+    var icons = isAnniv ? ['💖', '💖', '✨', '💕', '💖', '✨', '💝', '💖']
+                        : ['🎈', '🎈', '🎉', '🎈', '🎊', '🎈', '🎈', '🎉'];
     icons.forEach(function (ic, idx) {
-      var b = document.createElement('span');
-      b.textContent = ic;
-      b.style.left = (12 + idx * 32) + '%';
-      b.style.animationDelay = (idx * 1.3) + 's';
-      fx.appendChild(b);
+      var bl = document.createElement('span');
+      bl.textContent = ic;
+      bl.style.left = (3 + idx * 12.5 + Math.random() * 4) + '%';
+      bl.style.fontSize = (1.5 + Math.random() * 1.1) + 'rem';
+      bl.style.animationDelay = (Math.random() * 5) + 's';
+      bl.style.animationDuration = (4.5 + Math.random() * 3) + 's';
+      bl.style.setProperty('--h', Math.floor(Math.random() * 360) + 'deg');
+      fx.appendChild(bl);
     });
     card.appendChild(fx);
   });
