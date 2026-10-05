@@ -7,7 +7,7 @@ $base = base_url();
 $current = basename($_SERVER['SCRIPT_NAME']);
 function navlink(string $file, string $label, string $current, string $base): string {
     $active = $current === $file ? ' class="active"' : '';
-    return '<li><a href="' . $base . $file . '"' . $active . '>' . $label . '</a></li>';
+    return '<li><a href="' . $base . ($file === 'index.php' ? '' : substr($file, 0, -4)) . '"' . $active . '>' . $label . '</a></li>';
 }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@ $ogDesc = setting('site_name') . ', ' . setting('site_location') . ' — ' . set
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="<?= $base ?>index.php">
+    <a class="brand" href="<?= $base ?>">
       <span class="logo-badge">
         <img src="<?= $base ?>assets/img/logo-header.png" alt="<?= h(setting('site_name')) ?> logo">
       </span>
@@ -59,7 +59,7 @@ $ogDesc = setting('site_name') . ', ' . setting('site_location') . ' — ' . set
         <?= navlink('live-streaming.php', 'Live Streaming', $current, $base) ?>
         <?= navlink('magazines.php', 'Magazine', $current, $base) ?>
         <?= navlink('contact.php', 'Contact', $current, $base) ?>
-        <li class="nav-cta-item"><a class="nav-cta" href="<?= $base ?>live-streaming.php">Watch Live</a></li>
+        <li class="nav-cta-item"><a class="nav-cta" href="<?= $base ?>live-streaming">Watch Live</a></li>
       </ul>
     </nav>
   </div>

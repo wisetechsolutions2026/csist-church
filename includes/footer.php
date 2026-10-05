@@ -8,10 +8,10 @@
     </div>
     <div>
       <h4>Quick Links</h4>
-      <p><a href="<?= $base ?>about.php">About Us</a></p>
-      <p><a href="<?= $base ?>fellowships.php">Fellowships</a></p>
-      <p><a href="<?= $base ?>gallery.php">Gallery</a></p>
-      <p><a href="<?= $base ?>live-streaming.php">Live Streaming</a></p>
+      <p><a href="<?= $base ?>about">About Us</a></p>
+      <p><a href="<?= $base ?>fellowships">Fellowships</a></p>
+      <p><a href="<?= $base ?>gallery">Gallery</a></p>
+      <p><a href="<?= $base ?>live-streaming">Live Streaming</a></p>
     </div>
     <div>
       <h4>Contact</h4>

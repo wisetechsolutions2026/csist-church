@@ -95,7 +95,7 @@ $base = '../';
     <?php endif; ?>
     <input type="file" name="pdf" accept="application/pdf">
     <button type="submit" class="btn" style="margin-top:20px;"><?= $editRow ? 'Update' : 'Add' ?></button>
-    <?php if ($editRow): ?> <a class="btn btn-secondary" href="magazines.php">Cancel</a><?php endif; ?>
+    <?php if ($editRow): ?> <a class="btn btn-secondary" href="magazines">Cancel</a><?php endif; ?>
   </form>
 </div>
 

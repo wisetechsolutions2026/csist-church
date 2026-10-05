@@ -3,12 +3,12 @@ $pageTitle = 'Dashboard';
 require __DIR__ . '/_layout_top.php';
 
 $tiles = [
-    ['service.php', '&#9728;&#65039;', 'Sunday Service', 'Update this Sunday\'s date and service timings.', false],
-    ['celebrations.php', '&#127874;', 'Birthday / Anniversary', 'Add or edit celebration cards shown on the home page.', false],
-    ['settings.php', '&#9881;&#65039;', 'Site Info', 'Church name, tagline, address and contact details.', true],
-    ['leaders.php', '&#128081;', 'Leadership', 'Presbyter, Secretary, Treasurer and their photos.', true],
-    ['fellowships.php', '&#129309;', 'Fellowships', 'Manage fellowship pages and descriptions.', true],
-    ['magazines.php', '&#128214;', 'Magazines', 'Upload monthly magazine PDFs.', false],
+    ['service', '&#9728;&#65039;', 'Sunday Service', 'Update this Sunday\'s date and service timings.', false],
+    ['celebrations', '&#127874;', 'Birthday / Anniversary', 'Add or edit celebration cards shown on the home page.', false],
+    ['settings', '&#9881;&#65039;', 'Site Info', 'Church name, tagline, address and contact details.', true],
+    ['leaders', '&#128081;', 'Leadership', 'Presbyter, Secretary, Treasurer and their photos.', true],
+    ['fellowships', '&#129309;', 'Fellowships', 'Manage fellowship pages and descriptions.', true],
+    ['magazines', '&#128214;', 'Magazines', 'Upload monthly magazine PDFs.', false],
 ];
 ?>
 <style>

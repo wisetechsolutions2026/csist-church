@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Leadership';
+$requireSuper = true;
 require __DIR__ . '/_layout_top.php';
-require_super_admin();
 
 $flash = '';
 $uploadDir = __DIR__ . '/../assets/img/leaders/';
@@ -133,7 +133,7 @@ $curZoom = (int)($editRow['photo_zoom'] ?? 100);
     </div>
 
     <button type="submit" class="btn" style="margin-top:20px;"><?= $editRow ? 'Update' : 'Add' ?></button>
-    <?php if ($editRow): ?> <a class="btn btn-secondary" href="leaders.php">Cancel</a><?php endif; ?>
+    <?php if ($editRow): ?> <a class="btn btn-secondary" href="leaders">Cancel</a><?php endif; ?>
   </form>
 </div>
 

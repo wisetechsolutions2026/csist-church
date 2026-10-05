@@ -35,8 +35,8 @@ $slides = [
     <h1 class="word-reveal"><?= h(setting('site_name')) ?></h1>
     <p><?= h(setting('site_location')) ?> &mdash; <?= h(setting('tagline')) ?></p>
     <div class="hero-cta">
-      <a class="btn btn-outline" href="<?= $base ?>live-streaming.php">&#9658; Watch Live</a>
-      <a class="btn" href="<?= $base ?>about.php" style="margin-left:14px;">Our Story</a>
+      <a class="btn btn-outline" href="<?= $base ?>live-streaming">&#9658; Watch Live</a>
+      <a class="btn" href="<?= $base ?>about" style="margin-left:14px;">Our Story</a>
     </div>
   </div>
 
@@ -225,7 +225,7 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
       <p>CSI St. Matthew's Church, Porur has grown from a handful of families into a congregation of over 700 families,
       gathering every Sunday for worship across three services at different timings. We warmly welcome you to join us
       in worship, fellowship, and service.</p>
-      <a class="btn" href="<?= $base ?>about.php">Read Our History</a>
+      <a class="btn" href="<?= $base ?>about">Read Our History</a>
     </div>
   </div>
 </section>
@@ -252,13 +252,13 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
         <div class="fcard-body">
           <h3><?= h($f['title']) ?></h3>
           <p style="color: var(--text-muted); font-style: italic;">"<?= h($f['tagline']) ?>"</p>
-          <a href="<?= $base ?>fellowships.php?slug=<?= urlencode($f['slug']) ?>">Learn more &rarr;</a>
+          <a href="<?= $base ?>fellowships?slug=<?= urlencode($f['slug']) ?>">Learn more &rarr;</a>
         </div>
       </div>
       <?php endwhile; ?>
     </div>
     <div style="text-align:center; margin-top: 40px;" class="reveal">
-      <a class="btn" href="<?= $base ?>fellowships.php">View All Fellowships</a>
+      <a class="btn" href="<?= $base ?>fellowships">View All Fellowships</a>
     </div>
   </div>
 </section>

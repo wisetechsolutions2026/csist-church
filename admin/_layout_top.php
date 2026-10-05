@@ -1,11 +1,12 @@
 <?php
 require_once __DIR__ . '/../includes/admin-auth.php';
 require_admin();
+if (!empty($requireSuper)) require_super_admin();
 $base = base_url();
 $currentPage = basename($_SERVER['SCRIPT_NAME']);
 function nav_link(string $file, string $label): void {
     global $currentPage;
-    echo '<a href="' . $file . '"' . ($currentPage === $file ? ' class="active"' : '') . '>' . $label . '</a>';
+    echo '<a href="' . ($file === 'index.php' ? './' : substr($file, 0, -4)) . '"' . ($currentPage === $file ? ' class="active"' : '') . '>' . $label . '</a>';
 }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -109,7 +110,7 @@ function nav_link(string $file, string $label): void {
     <?php nav_link('magazines.php', 'Magazines'); ?>
     <?php nav_link('service.php', 'Sunday Service'); ?>
     <?php nav_link('celebrations.php', 'Birthday / Anniv.'); ?>
-    <a href="logout.php" class="logout">Logout</a>
+    <a href="logout" class="logout">Logout</a>
   </nav>
 </div>
 <div class="admin-wrap">

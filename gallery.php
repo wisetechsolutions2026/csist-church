@@ -31,9 +31,9 @@ $base = base_url();
 <section>
   <div class="container">
     <div class="category-tabs reveal">
-      <a href="<?= $base ?>gallery.php" class="<?= $activeCat === '' ? 'active' : '' ?>">All</a>
+      <a href="<?= $base ?>gallery" class="<?= $activeCat === '' ? 'active' : '' ?>">All</a>
       <?php foreach ($cats as $c): ?>
-      <a href="<?= $base ?>gallery.php?cat=<?= urlencode($c['slug']) ?>" class="<?= $activeCat === $c['slug'] ? 'active' : '' ?>"><?= h($c['title']) ?></a>
+      <a href="<?= $base ?>gallery?cat=<?= urlencode($c['slug']) ?>" class="<?= $activeCat === $c['slug'] ? 'active' : '' ?>"><?= h($c['title']) ?></a>
       <?php endforeach; ?>
     </div>
     <div class="gallery-grid">

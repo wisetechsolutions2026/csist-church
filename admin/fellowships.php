@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Fellowships';
+$requireSuper = true;
 require __DIR__ . '/_layout_top.php';
-require_super_admin();
 
 $flash = '';
 
@@ -73,7 +73,7 @@ $all = db()->query("SELECT * FROM fellowships ORDER BY sort_order");
       <?php endforeach; ?>
     </select>
     <button type="submit" class="btn" style="margin-top:20px;"><?= $editRow ? 'Update' : 'Add' ?></button>
-    <?php if ($editRow): ?> <a class="btn btn-secondary" href="fellowships.php">Cancel</a><?php endif; ?>
+    <?php if ($editRow): ?> <a class="btn btn-secondary" href="fellowships">Cancel</a><?php endif; ?>
   </form>
 </div>
 

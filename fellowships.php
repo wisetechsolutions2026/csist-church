@@ -34,7 +34,7 @@ $base = base_url();
       </a>
       <?php endwhile; ?>
     </div>
-    <div style="margin-top: 34px;" class="reveal"><a class="btn" href="<?= $base ?>fellowships.php">&larr; All Fellowships</a></div>
+    <div style="margin-top: 34px;" class="reveal"><a class="btn" href="<?= $base ?>fellowships">&larr; All Fellowships</a></div>
   </div>
 </section>
 
@@ -58,7 +58,7 @@ $base = base_url();
         <div class="fcard-body">
           <h3><?= h($f['title']) ?></h3>
           <p style="color: var(--text-muted); font-style: italic;">"<?= h($f['tagline']) ?>"</p>
-          <a href="<?= $base ?>fellowships.php?slug=<?= urlencode($f['slug']) ?>">Learn more &rarr;</a>
+          <a href="<?= $base ?>fellowships?slug=<?= urlencode($f['slug']) ?>">Learn more &rarr;</a>
         </div>
       </div>
       <?php endwhile; ?>

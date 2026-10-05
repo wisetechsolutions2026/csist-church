@@ -21,7 +21,7 @@ function is_super_admin(): bool {
 
 function require_admin(): void {
     if (!admin_logged_in()) {
-        header('Location: login.php');
+        header('Location: login');
         exit;
     }
 }
@@ -29,7 +29,7 @@ function require_admin(): void {
 function require_super_admin(): void {
     require_admin();
     if (!is_super_admin()) {
-        header('Location: celebrations.php');
+        header('Location: celebrations');
         exit;
     }
 }

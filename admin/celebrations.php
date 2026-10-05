@@ -154,7 +154,7 @@ $base = '../';
 
     <label style="margin-top:16px;"><input type="checkbox" name="is_active" <?= (!$editRow || $editRow['is_active']) ? 'checked' : '' ?>> Show on home page</label>
     <button type="submit" class="btn" style="margin-top:20px;"><?= $editRow ? 'Update' : 'Add' ?></button>
-    <?php if ($editRow): ?> <a class="btn btn-secondary" href="celebrations.php">Cancel</a><?php endif; ?>
+    <?php if ($editRow): ?> <a class="btn btn-secondary" href="celebrations">Cancel</a><?php endif; ?>
   </form>
 </div>
 
