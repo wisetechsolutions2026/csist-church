@@ -137,3 +137,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+// Celebration cards keep identical size: shrink long names to fit their fixed box
+function fitCelebrationNames() {
+  document.querySelectorAll('.celebration-name').forEach(function (el) {
+    el.style.fontSize = '';
+    var size = parseFloat(getComputedStyle(el).fontSize);
+    var range = document.createRange();
+    function overflows() {
+      range.selectNodeContents(el);
+      var rect = range.getBoundingClientRect();
+      return rect.width > el.clientWidth - 8 || rect.height > el.clientHeight + 1;
+    }
+    while (overflows() && size > 10) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  });
+}
+window.addEventListener('load', fitCelebrationNames);
+window.addEventListener('resize', fitCelebrationNames);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitCelebrationNames);

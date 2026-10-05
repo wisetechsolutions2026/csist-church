@@ -536,7 +536,7 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 .celebration-icon { font-size: 4rem; position: relative; z-index: 1; }
 .celebration-body {
   position: relative; z-index: 1;
-  margin-top: -22px;
+  margin-top: -22px; width: 100%;
   padding: 0 20px 22px;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
 }
@@ -544,9 +544,14 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--amber-soft);
 }
-.celebration-name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.35rem; }
-.celebration-name.is-couple { font-size: 1.1rem; line-height: 1.35; }
-.celebration-name .couple-amp { display: block; font-size: 0.9rem; color: var(--amber-soft); margin: 2px 0; }
+.celebration-name {
+  font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.35rem; line-height: 1.2;
+  width: 100%; height: 4.4rem; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+}
+.celebration-name:not(.is-couple) { white-space: nowrap; }
+.celebration-name.is-couple { font-size: 1.1rem; line-height: 1.25; }
+.celebration-name .couple-amp { display: block; font-size: 0.85em; color: var(--amber-soft); margin: 1px 0; }
 .celebration-date { font-family: 'Inter', sans-serif; font-size: 0.82rem; color: #cfc6ac; }
 @media (max-width: 950px) {
   .celebration-card { order: 3; width: 100%; max-width: 320px; }
