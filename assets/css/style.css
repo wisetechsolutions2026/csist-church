@@ -686,3 +686,31 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 .splash-timer { position: fixed; left: 0; right: 0; bottom: 0; height: 5px; z-index: 3; background: rgba(255,255,255,0.08); }
 .splash-timer span { display: block; height: 100%; width: 100%; transform-origin: left; background: linear-gradient(90deg, var(--amber), var(--amber-soft)); animation: timerBar 5s linear forwards; }
 @keyframes timerBar { to { transform: scaleX(0); } }
+
+/* Animation inside every celebration card */
+.celebration-card .card-fx { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 3; border-radius: inherit; }
+.card-fx i { position: absolute; top: -14px; width: 6px; height: 9px; border-radius: 2px; opacity: .85; animation: cardConfetti linear infinite; }
+@keyframes cardConfetti {
+  0% { transform: translate3d(0,-14px,0) rotate(0); opacity: 0; }
+  10% { opacity: .9; }
+  100% { transform: translate3d(var(--sway,0), 340px, 0) rotate(540deg); opacity: .9; }
+}
+.card-fx span { position: absolute; bottom: -34px; font-size: 1.5rem; animation: cardBalloon 5.5s ease-in infinite; }
+@keyframes cardBalloon {
+  0% { transform: translateY(0) rotate(-8deg); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: translateY(-300px) rotate(8deg); opacity: 0; }
+}
+.celebration-icon { animation: iconBounce 2.2s ease-in-out infinite; display: inline-block; }
+@keyframes iconBounce { 0%, 100% { transform: translateY(0) scale(1); } 40% { transform: translateY(-12px) scale(1.12) rotate(-5deg); } 60% { transform: translateY(-4px) scale(1.04) rotate(4deg); } }
+.celebration-label {
+  background: linear-gradient(110deg, var(--amber-soft) 25%, #fff 45%, var(--amber) 60%, var(--amber-soft) 80%);
+  background-size: 250% auto; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 3.5s linear infinite;
+}
+.celebration-card { animation-name: cardGlow; animation-duration: 3.2s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+@keyframes cardGlow { 0%, 100% { border-color: rgba(242,182,50,0.35); } 50% { border-color: rgba(242,182,50,0.9); box-shadow: 0 24px 55px -18px rgba(242,182,50,0.35); } }
+.splash-cards .celebration-card { animation: cardPop .8s cubic-bezier(.2,1.5,.4,1) both, cardGlow 3.2s 1s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .card-fx, .celebration-icon, .celebration-label, .celebration-card { animation: none !important; }
+}

@@ -175,3 +175,35 @@ function fitCelebrationNames() {
 window.addEventListener('load', fitCelebrationNames);
 window.addEventListener('resize', fitCelebrationNames);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitCelebrationNames);
+
+// Animated celebration cards: confetti + floating balloons/hearts inside every card
+function initCelebrationFx() {
+  var colors = ['#f2b632', '#f7d685', '#3a63c8', '#8a4fd1', '#c8385a', '#ffffff'];
+  document.querySelectorAll('.celebration-card').forEach(function (card) {
+    if (card.querySelector('.card-fx')) return;
+    var fx = document.createElement('div');
+    fx.className = 'card-fx';
+    fx.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < 16; i++) {
+      var p = document.createElement('i');
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.background = colors[i % colors.length];
+      p.style.animationDelay = (Math.random() * 4) + 's';
+      p.style.animationDuration = (2.6 + Math.random() * 2.4) + 's';
+      p.style.setProperty('--sway', (Math.random() * 40 - 20) + 'px');
+      fx.appendChild(p);
+    }
+    var label = card.querySelector('.celebration-label');
+    var isAnniv = label && /anniversary/i.test(label.textContent);
+    var icons = isAnniv ? ['💖', '✨', '💖'] : ['🎈', '🎉', '🎈'];
+    icons.forEach(function (ic, idx) {
+      var b = document.createElement('span');
+      b.textContent = ic;
+      b.style.left = (12 + idx * 32) + '%';
+      b.style.animationDelay = (idx * 1.3) + 's';
+      fx.appendChild(b);
+    });
+    card.appendChild(fx);
+  });
+}
+document.addEventListener('DOMContentLoaded', initCelebrationFx);
