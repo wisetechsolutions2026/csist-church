@@ -97,6 +97,8 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
     </div>
     <button type="button" class="splash-close btn">Continue to site &rarr;</button>
   </div>
+  <div class="splash-timer" aria-hidden="true"><span></span>
+  </div>
 </div>
 <script>
 (function () {
@@ -130,6 +132,8 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
   s.addEventListener('click', function (e) { if (e.target === s) close(); });
   document.addEventListener('keydown', onKey);
   if (typeof fitCelebrationNames === 'function') setTimeout(fitCelebrationNames, 50);
+  var auto = setTimeout(close, 5000);
+  s.querySelector('.splash-close').addEventListener('click', function () { clearTimeout(auto); });
 })();
 </script>
 <?php endif; ?>
