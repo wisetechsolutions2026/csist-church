@@ -80,7 +80,7 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
     <?php
 }
 ?>
-<?php if ($birthdays || $anniversaries): ?>
+<?php $hasCelebs = $birthdays || $anniversaries; if ($hasCelebs || $serviceEnabled): ?>
 <div id="celebSplash" class="celeb-splash" role="dialog" aria-modal="true" aria-label="Celebrations" hidden>
   <div class="splash-confetti" aria-hidden="true"></div>
   <div class="splash-balloons" aria-hidden="true">
@@ -89,12 +89,32 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
     <span style="left:50%;--d:2.4s;--s:2.2rem">&#127881;</span>
   </div>
   <div class="splash-inner">
-    <div class="splash-title"><?= $birthdays ? 'Happy Birthday!' : 'Happy Anniversary!' ?></div>
-    <p class="splash-sub">Wishing you God's richest blessings</p>
+    <div class="splash-title"><?= $birthdays ? 'Happy Birthday!' : ($anniversaries ? 'Happy Anniversary!' : 'This Sunday') ?></div>
+    <p class="splash-sub"><?= $hasCelebs ? "Wishing you God's richest blessings" : 'Join us in worship' ?></p>
     <div class="splash-cards">
       <?php $di = 0; foreach ($birthdays as $birthday): $di++; render_celebration_card($birthday, 'Happy Birthday', '&#127874;', $base, 'splash-pop', 250 + $di * 160); endforeach; ?>
       <?php foreach ($anniversaries as $anniversary): $di++; render_celebration_card($anniversary, 'Happy Anniversary', '&#128141;', $base, 'splash-pop', 250 + $di * 160); endforeach; ?>
     </div>
+    <?php if ($serviceEnabled): ?>
+    <div class="splash-service">
+      <div class="service-flash-card">
+        <span class="service-flash-ribbon">This Sunday</span>
+        <div class="service-flash-date"><?= h(format_ordinal_date(setting('service_date'))) ?></div>
+        <div class="service-flash-times">
+          <div class="service-time-badge">
+            <span class="service-time-icon">&#9728;&#65039;</span>
+            <span class="service-time-label">Morning Service</span>
+            <span class="service-time-value"><?= h(setting('service_morning')) ?></span>
+          </div>
+          <div class="service-time-badge">
+            <span class="service-time-icon">&#127769;</span>
+            <span class="service-time-label">Evening Service</span>
+            <span class="service-time-value"><?= h(setting('service_evening')) ?></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
     <button type="button" class="splash-close btn">Continue to site &rarr;</button>
   </div>
   <div class="splash-timer" aria-hidden="true"><span></span>
@@ -104,7 +124,7 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
 (function () {
   var s = document.getElementById('celebSplash');
   if (!s) return;
-  var key = 'celebSplash:<?= date('Y-m-d') ?>:<?= md5(json_encode([$birthdays, $anniversaries])) ?>';
+  var key = 'celebSplash:<?= date('Y-m-d') ?>:<?= md5(json_encode([$birthdays, $anniversaries, $serviceEnabled, setting('service_date'), setting('service_morning'), setting('service_evening')])) ?>';
   try { if (sessionStorage.getItem(key)) return; } catch (e) {}
   s.hidden = false;
   document.documentElement.style.overflow = 'hidden';

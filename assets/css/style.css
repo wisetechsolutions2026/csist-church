@@ -714,3 +714,10 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 @media (prefers-reduced-motion: reduce) {
   .card-fx, .celebration-icon, .celebration-label, .celebration-card { animation: none !important; }
 }
+
+/* Sunday service card inside the splash */
+.splash-service { display: flex; justify-content: center; margin: 4px 0 30px; padding-top: 14px; }
+.splash-service .service-flash-card { animation: cardPop .9s .35s cubic-bezier(.2,1.5,.4,1) both; text-align: center; }
+.splash-cards:empty { display: none; }
+.splash-cards:not(:empty) + .splash-service { animation: splashIn .6s .9s both; }
+.splash-cards:not(:empty) + .splash-service .service-flash-card { animation-delay: 1.1s; }
