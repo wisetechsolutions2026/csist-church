@@ -9,6 +9,7 @@ $tiles = [
     ['leaders', '&#128081;', 'Leadership', 'Presbyter, Secretary, Treasurer and their photos.', true],
     ['fellowships', '&#129309;', 'Fellowships', 'Manage fellowship pages and descriptions.', true],
     ['magazines', '&#128214;', 'Magazines', 'Upload monthly magazine PDFs.', false],
+    ['gallery', '&#128247;', 'Gallery', 'Create events with a date and upload their photos.', false],
 ];
 ?>
 <style>

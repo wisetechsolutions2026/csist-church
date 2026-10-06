@@ -69,3 +69,15 @@ CREATE TABLE celebrations (
   is_active TINYINT(1) NOT NULL DEFAULT 1,
   sort_order INT DEFAULT 0
 ) ENGINE=InnoDB;
+
+-- Gallery events (photos are grouped into dated events; gallery_images.event_id points here)
+CREATE TABLE IF NOT EXISTS gallery_events (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_id INT NOT NULL,
+  title VARCHAR(160) NOT NULL,
+  event_date DATE DEFAULT NULL,
+  cover VARCHAR(255) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (category_id) REFERENCES gallery_categories(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+-- ALTER TABLE gallery_images ADD COLUMN event_id INT DEFAULT NULL, ADD INDEX (event_id);
