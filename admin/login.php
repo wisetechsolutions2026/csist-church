@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../includes/admin-credentials.php';
+require_once __DIR__ . '/../includes/admin-auth.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -11,10 +11,19 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
-    $admin = ADMINS[$username] ?? null;
-    if ($admin && password_verify($password, $admin['hash'])) {
+    $admin = null;
+    $dbUser = find_admin_user($username);
+    if ($dbUser) {
+        if (password_verify($password, $dbUser['password_hash'])) {
+            $admin = ['id' => (int)$dbUser['id'], 'role' => $dbUser['role']];
+        }
+    } elseif (!admin_users_table_has_rows() && isset(ADMINS[$username]) && password_verify($password, ADMINS[$username]['hash'])) {
+        $admin = ['id' => 0, 'role' => ADMINS[$username]['role']];
+    }
+    if ($admin) {
         session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
+        $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_username'] = $username;
         $_SESSION['admin_role'] = $admin['role'];
         header('Location: ./');

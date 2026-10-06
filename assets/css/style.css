@@ -776,3 +776,18 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   padding: 7px 18px; border-radius: 30px; font-size: 0.9rem; font-weight: 500; color: var(--ink-3);
   background: var(--paper-card); border: 1px solid var(--border); box-shadow: 0 10px 24px -14px rgba(10,14,26,0.4);
 }
+
+/* Gallery year / month filter */
+.gallery-filter { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 14px 18px; margin: 0 auto 38px; }
+.gf-field { display: flex; flex-direction: column; gap: 5px; }
+.gf-field label { font-size: 0.7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+.gf-field select {
+  min-width: 160px; padding: 11px 38px 11px 18px; border-radius: 30px; border: 1px solid var(--border);
+  background: var(--paper-card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%233a63c8' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center;
+  -webkit-appearance: none; appearance: none; font: 500 0.92rem 'Inter', sans-serif; color: var(--ink-3); cursor: pointer;
+  box-shadow: 0 10px 24px -16px rgba(10,14,26,0.4);
+}
+.gf-field select:focus { outline: none; border-color: var(--sapphire); box-shadow: 0 0 0 4px rgba(58,99,200,0.14); }
+.gf-clear { padding: 11px 18px; border-radius: 30px; border: 1px solid var(--ruby); color: var(--ruby); font-size: 0.88rem; font-weight: 600; }
+.gf-clear:hover { background: var(--ruby); color: #fff; }
+.gf-count { padding: 11px 6px; font-size: 0.88rem; color: var(--text-muted); }

@@ -81,3 +81,13 @@ CREATE TABLE IF NOT EXISTS gallery_events (
   FOREIGN KEY (category_id) REFERENCES gallery_categories(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 -- ALTER TABLE gallery_images ADD COLUMN event_id INT DEFAULT NULL, ADD INDEX (event_id);
+
+-- Admin users (log in at /admin; role 'super' = everything, 'limited' = service/celebrations/magazines/gallery)
+CREATE TABLE IF NOT EXISTS admin_users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(40) NOT NULL UNIQUE,
+  display_name VARCHAR(100) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('super','limited') NOT NULL DEFAULT 'limited',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;

@@ -106,11 +106,13 @@ function nav_link(string $file, string $label): void {
     <?php nav_link('settings.php', 'Site Info'); ?>
     <?php nav_link('leaders.php', 'Leadership'); ?>
     <?php nav_link('fellowships.php', 'Fellowships'); ?>
+    <?php nav_link('users.php', 'Users'); ?>
     <?php endif; ?>
     <?php nav_link('magazines.php', 'Magazines'); ?>
     <?php nav_link('gallery.php', 'Gallery'); ?>
     <?php nav_link('service.php', 'Sunday Service'); ?>
     <?php nav_link('celebrations.php', 'Birthday / Anniv.'); ?>
+    <a href="profile"<?= $currentPage === 'profile.php' ? ' class="active"' : '' ?>>&#128100; <?= h(current_admin()['display_name'] ?? '') ?></a>
     <a href="logout" class="logout">Logout</a>
   </nav>
 </div>

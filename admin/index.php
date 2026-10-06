@@ -8,6 +8,7 @@ $tiles = [
     ['settings', '&#9881;&#65039;', 'Site Info', 'Church name, tagline, address and contact details.', true],
     ['leaders', '&#128081;', 'Leadership', 'Presbyter, Secretary, Treasurer and their photos.', true],
     ['fellowships', '&#129309;', 'Fellowships', 'Manage fellowship pages and descriptions.', true],
+    ['users', '&#128101;', 'Users', 'Add admin users, change their access and passwords.', true],
     ['magazines', '&#128214;', 'Magazines', 'Upload monthly magazine PDFs.', false],
     ['gallery', '&#128247;', 'Gallery', 'Create events with a date and upload their photos.', false],
 ];
@@ -34,7 +35,7 @@ $tiles = [
 </style>
 
 <div class="dash-hero">
-  <h1>Welcome back</h1>
+  <h1>Welcome back, <?= h(current_admin()['display_name'] ?? '') ?></h1>
   <p>Choose a section to manage.</p>
 </div>
 
