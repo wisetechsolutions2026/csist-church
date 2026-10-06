@@ -45,6 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $people[] = trim($t . ' ' . $n);
         }
         $people = array_slice($people, 0, 4);
+        $extraBirthdays = [];
+        if ($type === 'birthday' && count($people) > 1) {
+            $extraBirthdays = array_slice($people, 1);
+            $people = [$people[0]];
+        }
         $name = implode(' & ', $people);
         $occasion_date = trim($_POST['occasion_date'] ?? '');
         $is_active = isset($_POST['is_active']) ? 1 : 0;
@@ -71,6 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($flash)) {
             $stmt->execute();
             $flash = 'Saved.';
+            foreach ($extraBirthdays as $extraName) {
+                $ins = db()->prepare("INSERT INTO celebrations (type, name, occasion_date, is_active, photo, sort_order) VALUES ('birthday', ?, ?, ?, NULL, 0)");
+                $ins->bind_param('ssi', $extraName, $occasion_date, $is_active);
+                $ins->execute();
+            }
+            if ($extraBirthdays) {
+                $flash = 'Saved ' . (count($extraBirthdays) + 1) . ' separate birthday cards (one per person).';
+            }
         }
     } elseif ($action === 'delete') {
         $id = (int)($_POST['id'] ?? 0);
@@ -138,7 +151,7 @@ $base = '../';
       </div>
 <?php endforeach; ?>
     </div>
-    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:6px;">Tap + after the name to add another member to the same card (up to 4).</p>
+    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:6px;">Tap + to add more names. Birthday: each name becomes its own card. Anniversary: all names stay on one card (up to 4).</p>
     <label>Date</label>
     <input type="date" name="occasion_date" value="<?= h($editRow['occasion_date'] ?? '') ?>" required>
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h(!empty($editRow['occasion_date']) ? format_ordinal_date($editRow['occasion_date']) : '—') ?></strong></p>
