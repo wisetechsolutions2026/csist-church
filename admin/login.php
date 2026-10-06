@@ -59,11 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>CSI St. Matthew's</h1>
     <p class="sub">Admin Login</p>
     <?php if ($error): ?><div class="error"><?= h($error) ?></div><?php endif; ?>
-    <form method="post">
-      <label>Username</label>
-      <input type="text" name="username" required autofocus>
-      <label>Password</label>
-      <input type="password" name="password" required>
+    <form method="post" action="login" autocomplete="on">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
       <button type="submit">Log In</button>
     </form>
   </div>
