@@ -19,23 +19,11 @@ if ($event) {
     $stmt->execute();
     $photos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 } else {
-    $activeCat = $_GET['cat'] ?? '';
-    $cats = db()->query('SELECT * FROM gallery_categories ORDER BY sort_order')->fetch_all(MYSQLI_ASSOC);
-    if ($activeCat && !in_array($activeCat, array_column($cats, 'slug'), true)) {
-        $activeCat = '';
-    }
-    $sql = "SELECT e.id, e.title, e.event_date, c.title AS cat_title, c.folder,
+    $sql = "SELECT e.id, e.title, e.event_date, c.folder,
                    (SELECT COUNT(*) FROM gallery_images gi WHERE gi.event_id = e.id) AS cnt,
                    COALESCE(e.cover, (SELECT gi.filename FROM gallery_images gi WHERE gi.event_id = e.id ORDER BY gi.id LIMIT 1)) AS thumb
             FROM gallery_events e JOIN gallery_categories c ON e.category_id = c.id";
-    if ($activeCat) {
-        $stmt = db()->prepare($sql . ' WHERE c.slug = ? HAVING cnt > 0 ORDER BY (e.event_date IS NULL), e.event_date DESC, e.id DESC');
-        $stmt->bind_param('s', $activeCat);
-        $stmt->execute();
-        $events = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    } else {
-        $events = db()->query($sql . ' HAVING cnt > 0 ORDER BY (e.event_date IS NULL), e.event_date DESC, e.id DESC')->fetch_all(MYSQLI_ASSOC);
-    }
+    $events = db()->query($sql . ' HAVING cnt > 0 ORDER BY (e.event_date IS NULL), e.event_date DESC, e.id DESC')->fetch_all(MYSQLI_ASSOC);
 }
 
 require __DIR__ . '/includes/header.php';
@@ -43,16 +31,23 @@ require __DIR__ . '/includes/header.php';
 
 <?php if ($event): ?>
 <div class="page-hero">
-  <h1><?= h($event['title']) ?></h1>
-  <p><?= $event['event_date'] ? h(format_ordinal_date($event['event_date'])) . ' &middot; ' : '' ?><?= h($event['cat_title']) ?> &middot; <?= count($photos) ?> photo<?= count($photos) === 1 ? '' : 's' ?></p>
+  <h1>Gallery</h1>
+  <p>Relive our festivals, services and programmes</p>
 </div>
 
 <section>
   <div class="container">
     <div class="event-back reveal"><a class="btn btn-outline-dark" href="<?= $base ?>gallery">&larr; All events</a></div>
+    <div class="event-header reveal">
+      <h2><?= h($event['title']) ?></h2>
+      <div class="event-meta">
+        <?php if ($event['event_date']): ?><span class="event-meta-chip">&#128197; <?= h(format_ordinal_date($event['event_date'])) ?></span><?php endif; ?>
+        <span class="event-meta-chip">&#128247; <?= count($photos) ?> photo<?= count($photos) === 1 ? '' : 's' ?></span>
+      </div>
+    </div>
     <div class="gallery-grid">
       <?php $i = 0; foreach ($photos as $img): $i++; ?>
-      <a class="lightbox-link reveal reveal-delay-<?= min($i, 3) ?>" href="<?= $base ?>assets/img/gallery/<?= h($img['folder']) ?>/<?= h($img['filename']) ?>" data-caption="<?= h($event['title']) ?>">
+      <a class="lightbox-link reveal reveal-delay-<?= min($i, 3) ?>" href="<?= $base ?>assets/img/gallery/<?= h($img['folder']) ?>/<?= h($img['filename']) ?>" data-caption="<?= h($event['title']) ?><?= $event['event_date'] ? ' — ' . h(format_ordinal_date($event['event_date'])) : '' ?>">
         <img src="<?= $base ?>assets/img/gallery/<?= h($img['folder']) ?>/<?= h($img['filename']) ?>" alt="<?= h($event['title']) ?>" loading="lazy">
       </a>
       <?php endforeach; ?>
@@ -69,12 +64,6 @@ require __DIR__ . '/includes/header.php';
 
 <section>
   <div class="container">
-    <div class="category-tabs reveal">
-      <a href="<?= $base ?>gallery" class="<?= $activeCat === '' ? 'active' : '' ?>">All</a>
-      <?php foreach ($cats as $c): ?>
-      <a href="<?= $base ?>gallery?cat=<?= urlencode($c['slug']) ?>" class="<?= $activeCat === $c['slug'] ? 'active' : '' ?>"><?= h($c['title']) ?></a>
-      <?php endforeach; ?>
-    </div>
     <div class="event-grid">
       <?php $i = 0; foreach ($events as $ev): $i++; ?>
       <a class="event-card reveal reveal-delay-<?= min($i, 3) ?>" href="<?= $base ?>gallery?event=<?= (int)$ev['id'] ?>">
@@ -85,7 +74,6 @@ require __DIR__ . '/includes/header.php';
           <span class="event-count">&#128247; <?= (int)$ev['cnt'] ?></span>
         </div>
         <div class="event-info">
-          <span class="event-cat"><?= h($ev['cat_title']) ?></span>
           <h3><?= h($ev['title']) ?></h3>
           <?php if ($ev['event_date']): ?><span class="event-date">&#128197; <?= h(format_ordinal_date($ev['event_date'])) ?></span><?php endif; ?>
         </div>
