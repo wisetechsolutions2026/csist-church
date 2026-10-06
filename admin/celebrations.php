@@ -37,12 +37,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titles = $_POST['title'] ?? [];
         $names = $_POST['pname'] ?? [];
         $people = [];
+        $titleRe = '(?:Mr|Mrs|Ms|Miss|Baby|Master|Dr)\.?';
         foreach ($names as $i => $n) {
-            $n = trim(preg_replace('/\s+/', ' ', str_replace('&', ' ', (string)$n)));
-            if ($n === '') continue;
+            // several people typed into one box (&, comma, slash, new line, double space, or a second title) are split apart
+            $parts = preg_split('/\s*(?:&|,|\/|\r?\n)\s*|\s{2,}|\s+(?=' . $titleRe . '\s)/i', (string)$n);
             $t = trim((string)($titles[$i] ?? ''));
             if (!in_array($t, $allowedTitles, true)) $t = '';
-            $people[] = trim($t . ' ' . $n);
+            foreach ($parts as $pi => $part) {
+                $part = trim(preg_replace('/\s+/', ' ', $part));
+                if ($part === '') continue;
+                $hasTitle = preg_match('/^' . $titleRe . '\s/i', $part);
+                $people[] = ($pi === 0 && $t !== '' && !$hasTitle) ? $t . ' ' . $part : $part;
+            }
         }
         $people = array_slice($people, 0, 4);
         $extraBirthdays = [];
