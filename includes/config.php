@@ -65,3 +65,11 @@ function today_ist(): string {
 function celebration_is_expired(?string $date): bool {
     return $date !== null && preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) === 1 && $date < today_ist();
 }
+
+function celebration_status(?string $date): string {
+    if ($date === null || preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) !== 1) {
+        return 'today';
+    }
+    $t = today_ist();
+    return $date === $t ? 'today' : ($date > $t ? 'upcoming' : 'expired');
+}

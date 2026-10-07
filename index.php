@@ -51,7 +51,7 @@ $slides = [
 <?php
 $serviceEnabled = setting('service_card_enabled') === '1';
 $celebToday = today_ist();
-$celebSql = "SELECT * FROM celebrations WHERE type=? AND is_active=1 AND (occasion_date NOT REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}\$' OR occasion_date >= ?) ORDER BY sort_order, id DESC";
+$celebSql = "SELECT * FROM celebrations WHERE type=? AND is_active=1 AND (occasion_date NOT REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}\$' OR occasion_date = ?) ORDER BY sort_order, id DESC";
 $birthdays = [];
 $celebType = 'birthday';
 $stmt = db()->prepare($celebSql);

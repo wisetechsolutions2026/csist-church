@@ -26,7 +26,7 @@ function handle_photo_upload(?array $file): ?string {
     return $filename;
 }
 
-$allowedTitles = ['Mr.', 'Ms.', 'Mrs.', 'Dr.', 'Baby', 'Master'];
+$allowedTitles = ['Mr.', 'Ms.', 'Mrs.', 'Miss', 'Dr.', 'Baby', 'Master'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -126,7 +126,9 @@ if ($editRow) {
     }
 }
 
-$all = db()->query("SELECT * FROM celebrations ORDER BY type, sort_order, id DESC");
+$showAll = ($_GET["show"] ?? "") === "all";
+$todayIst = today_ist();
+$all = db()->query("SELECT * FROM celebrations" . ($showAll ? "" : " WHERE occasion_date NOT REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$' OR occasion_date >= '" . $todayIst . "'") . " ORDER BY occasion_date, type, id");
 $base = '../';
 ?>
 
@@ -213,6 +215,7 @@ $base = '../';
 
 <div class="admin-card">
   <h2>All Cards</h2>
+  <p class="hint" style="font-size:0.85rem; color:#6b5a4d; margin:6px 0 0;">A card appears on the home page only on its own date, then hides itself. <?= $showAll ? '<a href="celebrations">Hide expired cards</a>' : '<a href="celebrations?show=all">Show expired cards too</a>' ?></p>
   <div class="table-scroll">
   <table>
     <tr><th>Photo</th><th>Type</th><th>Name</th><th>Date</th><th>Status</th><th></th></tr>
@@ -228,8 +231,8 @@ $base = '../';
       <td><?= $row['type'] === 'anniversary' ? 'Anniversary' : 'Birthday' ?></td>
       <td><?= h($row['name']) ?></td>
       <td><?= h(format_ordinal_date($row['occasion_date'])) ?></td>
-      <?php $expired = celebration_is_expired($row['occasion_date']); ?>
-      <td><span class="badge <?= ($row['is_active'] && !$expired) ? 'badge-on' : 'badge-off' ?>"><?= !$row['is_active'] ? 'Hidden' : ($expired ? 'Expired — auto-hidden' : 'Visible') ?></span></td>
+      <?php $st = celebration_status($row['occasion_date']); ?>
+      <td><span class="badge <?= ($row['is_active'] && $st === 'today') ? 'badge-on' : 'badge-off' ?>" <?= ($row['is_active'] && $st === 'upcoming') ? 'style="background:#e4e8f6; color:#2e50a0;"' : '' ?>><?= !$row['is_active'] ? 'Hidden' : ($st === 'expired' ? 'Expired — auto-hidden' : ($st === 'upcoming' ? 'Scheduled' : 'Showing today')) ?></span></td>
       <td class="row-actions">
         <a href="?edit=<?= (int)$row['id'] ?>">Edit</a>
         <form method="post" style="display:inline" onsubmit="return confirm('Delete this card?');">
