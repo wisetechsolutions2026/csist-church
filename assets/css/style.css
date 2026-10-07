@@ -791,3 +791,24 @@ footer.site-footer a:hover { color: var(--amber-soft); }
 .gf-clear { padding: 11px 18px; border-radius: 30px; border: 1px solid var(--ruby); color: var(--ruby); font-size: 0.88rem; font-weight: 600; }
 .gf-clear:hover { background: var(--ruby); color: #fff; }
 .gf-count { padding: 11px 6px; font-size: 0.88rem; color: var(--text-muted); }
+
+/* Early morning (3 badges) + monthly special service */
+.service-flash-times.three { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.service-flash-times.three .service-time-value { font-size: 1.3rem; }
+.service-special {
+  margin-top: -6px; margin-bottom: 26px; padding: 18px 16px 16px; border-radius: 16px; text-align: center;
+  background: linear-gradient(135deg, rgba(242,182,50,0.18), rgba(138,79,209,0.18));
+  border: 1px solid rgba(247,214,133,0.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 0 rgba(242,182,50,0.35); animation: specialGlow 3s ease-in-out infinite;
+}
+@keyframes specialGlow { 50% { box-shadow: 0 0 22px 2px rgba(242,182,50,0.3); } }
+.service-special-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--amber-soft); }
+.service-special-name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.7rem; color: #fff; margin: 4px 0 6px; line-height: 1.2; }
+.service-special-when { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; color: #e9e3cf; font-size: 0.95rem; font-weight: 500; }
+@media (max-width: 700px) {
+  .service-flash-times.three { grid-template-columns: 1fr; gap: 10px; }
+  .service-flash-times.three .service-time-badge { flex-direction: row; justify-content: space-between; padding: 12px 18px; }
+  .service-flash-times.three .service-time-icon { margin: 0; }
+  .service-special-name { font-size: 1.4rem; }
+}
+@media (prefers-reduced-motion: reduce) { .service-special { animation: none; } }

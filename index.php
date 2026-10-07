@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/service-card.php';
 $pageTitle = 'Home';
 $leaders = db()->query('SELECT * FROM leaders ORDER BY sort_order');
 require __DIR__ . '/includes/header.php';
@@ -106,20 +107,7 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
     <?php if ($serviceEnabled): ?>
     <div class="splash-service">
       <div class="service-flash-card">
-        <span class="service-flash-ribbon">This Sunday</span>
-        <div class="service-flash-date"><?= h(format_ordinal_date(setting('service_date'))) ?></div>
-        <div class="service-flash-times">
-          <div class="service-time-badge">
-            <span class="service-time-icon">&#9728;&#65039;</span>
-            <span class="service-time-label">Morning Service</span>
-            <span class="service-time-value"><?= h(setting('service_morning')) ?></span>
-          </div>
-          <div class="service-time-badge">
-            <span class="service-time-icon">&#127769;</span>
-            <span class="service-time-label">Evening Service</span>
-            <span class="service-time-value"><?= h(setting('service_evening')) ?></span>
-          </div>
-        </div>
+        <?php render_service_card_body(); ?>
       </div>
     </div>
     <?php endif; ?>
@@ -179,20 +167,7 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
 <?php if ($serviceEnabled): ?>
 <div class="service-flash-wrap<?= ($birthdays || $anniversaries) ? ' service-flash-wrap-below' : '' ?>">
   <div class="service-flash-card reveal">
-    <span class="service-flash-ribbon">This Sunday</span>
-    <div class="service-flash-date"><?= h(format_ordinal_date(setting('service_date'))) ?></div>
-    <div class="service-flash-times">
-      <div class="service-time-badge">
-        <span class="service-time-icon">&#9728;&#65039;</span>
-        <span class="service-time-label">Morning Service</span>
-        <span class="service-time-value"><?= h(setting('service_morning')) ?></span>
-      </div>
-      <div class="service-time-badge">
-        <span class="service-time-icon">&#127769;</span>
-        <span class="service-time-label">Evening Service</span>
-        <span class="service-time-value"><?= h(setting('service_evening')) ?></span>
-      </div>
-    </div>
+    <?php render_service_card_body(); ?>
   </div>
 </div>
 <?php endif; ?>
