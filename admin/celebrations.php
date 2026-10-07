@@ -228,7 +228,8 @@ $base = '../';
       <td><?= $row['type'] === 'anniversary' ? 'Anniversary' : 'Birthday' ?></td>
       <td><?= h($row['name']) ?></td>
       <td><?= h(format_ordinal_date($row['occasion_date'])) ?></td>
-      <td><span class="badge <?= $row['is_active'] ? 'badge-on' : 'badge-off' ?>"><?= $row['is_active'] ? 'Visible' : 'Hidden' ?></span></td>
+      <?php $expired = celebration_is_expired($row['occasion_date']); ?>
+      <td><span class="badge <?= ($row['is_active'] && !$expired) ? 'badge-on' : 'badge-off' ?>"><?= !$row['is_active'] ? 'Hidden' : ($expired ? 'Expired — auto-hidden' : 'Visible') ?></span></td>
       <td class="row-actions">
         <a href="?edit=<?= (int)$row['id'] ?>">Edit</a>
         <form method="post" style="display:inline" onsubmit="return confirm('Delete this card?');">

@@ -49,12 +49,20 @@ $slides = [
 
 <?php
 $serviceEnabled = setting('service_card_enabled') === '1';
+$celebToday = today_ist();
+$celebSql = "SELECT * FROM celebrations WHERE type=? AND is_active=1 AND (occasion_date NOT REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}\$' OR occasion_date >= ?) ORDER BY sort_order, id DESC";
 $birthdays = [];
-$res = db()->query("SELECT * FROM celebrations WHERE type='birthday' AND is_active=1 ORDER BY sort_order, id DESC");
-while ($row = $res->fetch_assoc()) { $birthdays[] = $row; }
+$celebType = 'birthday';
+$stmt = db()->prepare($celebSql);
+$stmt->bind_param('ss', $celebType, $celebToday);
+$stmt->execute();
+$birthdays = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $anniversaries = [];
-$res = db()->query("SELECT * FROM celebrations WHERE type='anniversary' AND is_active=1 ORDER BY sort_order, id DESC");
-while ($row = $res->fetch_assoc()) { $anniversaries[] = $row; }
+$celebType = 'anniversary';
+$stmt = db()->prepare($celebSql);
+$stmt->bind_param('ss', $celebType, $celebToday);
+$stmt->execute();
+$anniversaries = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 function render_celebration_card(array $c, string $label, string $fallbackIcon, string $base, string $cls = 'reveal', int $delay = 0): void {
     ?>

@@ -57,3 +57,11 @@ function base_url(): string {
     $dir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
     return $dir === '' ? '/' : $dir . '/';
 }
+
+function today_ist(): string {
+    return (new DateTime('now', new DateTimeZone('Asia/Kolkata')))->format('Y-m-d');
+}
+
+function celebration_is_expired(?string $date): bool {
+    return $date !== null && preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) === 1 && $date < today_ist();
+}
