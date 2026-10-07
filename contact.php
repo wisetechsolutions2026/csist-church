@@ -48,6 +48,7 @@ $base = base_url();
       <h2>Reach Us</h2>
       <table class="contact-table">
         <tr><td>Church Location</td><td><?= h(setting('address')) ?></td></tr>
+        <?php $phone = setting('phone'); if ($phone !== ''): ?><tr><td>Phone</td><td><a href="tel:<?= h(preg_replace('/[^0-9+]/', '', $phone)) ?>"><?= h($phone) ?></a></td></tr><?php endif; ?>
         <tr><td>Presbyter's E-mail</td><td><a href="mailto:<?= h(setting('email')) ?>"><?= h(setting('email')) ?></a></td></tr>
       </table>
     </div>

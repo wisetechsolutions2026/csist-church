@@ -10,6 +10,7 @@ $fields = [
     'tagline' => 'Tagline',
     'address' => 'Full Address',
     'email' => 'Contact Email',
+    'phone' => 'Contact Phone',
     'youtube_channel' => 'YouTube Channel URL',
 ];
 
