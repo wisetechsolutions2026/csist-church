@@ -8,6 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'service_card_enabled' => isset($_POST['enabled']) ? '1' : '0',
         'service_date' => trim($_POST['service_date'] ?? ''),
         'service_early' => trim($_POST['service_early'] ?? ''),
+        'service_early_speaker' => trim($_POST['service_early_speaker'] ?? ''),
+        'service_morning_speaker' => trim($_POST['service_morning_speaker'] ?? ''),
+        'service_evening_speaker' => trim($_POST['service_evening_speaker'] ?? ''),
         'service_morning' => trim($_POST['service_morning'] ?? ''),
         'service_evening' => trim($_POST['service_evening'] ?? ''),
         'special_enabled' => isset($_POST['special_enabled']) ? '1' : '0',
@@ -27,6 +30,9 @@ $get = fn($key) => db()->query("SELECT setting_value FROM settings WHERE setting
 $enabled = $get('service_card_enabled');
 $date = $get('service_date');
 $early = $get('service_early');
+$earlySpeaker = $get('service_early_speaker');
+$morningSpeaker = $get('service_morning_speaker');
+$eveningSpeaker = $get('service_evening_speaker');
 $morning = $get('service_morning');
 $evening = $get('service_evening');
 $spEnabled = $get('special_enabled');
@@ -46,10 +52,16 @@ $spTime = $get('special_time');
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display on the home page as: <strong><?= h($date ? format_ordinal_date($date) : '—') ?></strong></p>
     <label>Early Morning Service Time (optional — leave empty to hide)</label>
     <input type="text" name="service_early" value="<?= h($early) ?>" placeholder="e.g. 5:30 AM">
+    <label>Early Morning Service Speaker (optional)</label>
+    <input type="text" name="service_early_speaker" value="<?= h($earlySpeaker) ?>" placeholder="e.g. Rev. Name">
     <label>Morning Service Time</label>
     <input type="text" name="service_morning" value="<?= h($morning) ?>" required>
+    <label>Morning Service Speaker (optional)</label>
+    <input type="text" name="service_morning_speaker" value="<?= h($morningSpeaker) ?>" placeholder="e.g. Rev. Appathurai">
     <label>Evening Service Time</label>
     <input type="text" name="service_evening" value="<?= h($evening) ?>" required>
+    <label>Evening Service Speaker (optional)</label>
+    <input type="text" name="service_evening_speaker" value="<?= h($eveningSpeaker) ?>" placeholder="e.g. Mr. Punitharajan">
 
     <h2 style="margin-top:34px; font-size:1.35rem;">Special Service (monthly)</h2>
     <p class="hint" style="font-size:0.85rem; color:#6b5a4d; margin-top:6px;">Once a month, in the first week, one extra service is held. Name it, pick the day and time. It shows under the Sunday timings and hides itself after its date.</p>
