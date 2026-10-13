@@ -25,6 +25,7 @@ CREATE TABLE leaders (
   sort_order INT DEFAULT 0
 ) ENGINE=InnoDB;
 
+-- (live table converted to utf8mb4 so text like the rupee sign can be stored)
 CREATE TABLE fellowships (
   id INT AUTO_INCREMENT PRIMARY KEY,
   slug VARCHAR(80) UNIQUE NOT NULL,

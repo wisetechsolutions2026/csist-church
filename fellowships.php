@@ -9,6 +9,9 @@ if ($slug) {
     $stmt->execute();
     $one = $stmt->get_result()->fetch_assoc();
 }
+if ($one) {
+    $pageTitle = $one['title'];
+}
 require __DIR__ . '/includes/header.php';
 $base = base_url();
 ?>
@@ -20,20 +23,9 @@ $base = base_url();
 
 <?php if ($one): ?>
 <section>
-  <div class="container" style="max-width: 780px;">
+  <div class="container fellowship-body">
     <div class="divider reveal"><span></span></div>
-    <p class="reveal"><?= h($one['description']) ?></p>
-    <div class="gallery-grid" style="margin-top: 30px;">
-      <?php
-      $imgs = db()->query("SELECT gi.filename, gi.alt FROM gallery_images gi JOIN gallery_categories gc ON gi.category_id = gc.id WHERE gc.slug = '" . db()->real_escape_string($one['gallery_slug']) . "'");
-      $i = 0;
-      while ($img = $imgs->fetch_assoc()): $i++;
-      ?>
-      <a class="lightbox-link reveal reveal-delay-<?= min($i, 3) ?>" href="<?= $base ?>assets/img/gallery/<?= h($one['gallery_slug']) ?>/<?= h($img['filename']) ?>" data-caption="<?= h($img['alt']) ?>">
-        <img src="<?= $base ?>assets/img/gallery/<?= h($one['gallery_slug']) ?>/<?= h($img['filename']) ?>" alt="<?= h($img['alt']) ?>">
-      </a>
-      <?php endwhile; ?>
-    </div>
+    <?= render_rich_text($one['description'] ?? '') ?>
     <div style="margin-top: 34px;" class="reveal"><a class="btn" href="<?= $base ?>fellowships">&larr; All Fellowships</a></div>
   </div>
 </section>
@@ -47,14 +39,8 @@ $base = base_url();
       $i = 0;
       while ($f = $all->fetch_assoc()):
         $i++;
-        $img = db()->query("SELECT gi.filename FROM gallery_images gi JOIN gallery_categories gc ON gi.category_id=gc.id WHERE gc.slug='" . db()->real_escape_string($f['gallery_slug']) . "' LIMIT 1")->fetch_assoc();
       ?>
       <div class="fcard reveal reveal-delay-<?= min($i, 3) ?>">
-        <?php if ($img): ?>
-        <div class="fimg-wrap">
-          <img src="<?= $base ?>assets/img/gallery/<?= h($f['gallery_slug']) ?>/<?= h($img['filename']) ?>" alt="<?= h($f['title']) ?>">
-        </div>
-        <?php endif; ?>
         <div class="fcard-body">
           <h3><?= h($f['title']) ?></h3>
           <p style="color: var(--text-muted); font-style: italic;">"<?= h($f['tagline']) ?>"</p>

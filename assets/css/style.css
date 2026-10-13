@@ -812,3 +812,25 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .service-special-name { font-size: 1.4rem; }
 }
 @media (prefers-reduced-motion: reduce) { .service-special { animation: none; } }
+
+/* Fellowship page content */
+.fellowship-body { max-width: 900px; }
+.fellowship-body p { font-size: 1.05rem; line-height: 1.85; }
+.rt-heading { margin: 44px 0 18px; font-size: 1.8rem; text-align: center; color: var(--ink-3); position: relative; padding-bottom: 14px; }
+.rt-heading::after { content: ''; position: absolute; left: 50%; bottom: 0; width: 54px; height: 3px; transform: translateX(-50%); border-radius: 2px; background: linear-gradient(90deg, var(--amber), var(--amber-soft)); }
+.rt-rows { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 6px 0 10px; }
+.rt-row {
+  display: flex; flex-direction: column; gap: 2px; padding: 18px 22px; border-radius: 16px; text-align: center;
+  background: radial-gradient(circle at 25% 15%, var(--ink-3), var(--ink) 80%); color: #fff;
+  border: 1px solid rgba(242,182,50,0.35); box-shadow: 0 20px 44px -24px rgba(10,14,26,0.55);
+}
+.rt-row span { font-size: 0.72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--amber-soft); }
+.rt-row strong { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 700; }
+.rt-chips { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.rt-chips li {
+  padding: 8px 18px; border-radius: 30px; font-size: 0.95rem; font-weight: 500; color: var(--ink-3);
+  background: var(--paper-card); border: 1px solid var(--border); box-shadow: 0 10px 22px -16px rgba(10,14,26,0.45);
+  transition: transform .25s, border-color .25s;
+}
+.rt-chips li:hover { transform: translateY(-3px); border-color: var(--sapphire); }
+.fellowship-body > p:has(> a.btn) { text-align: center; }

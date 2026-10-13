@@ -42,7 +42,7 @@ function nav_link(string $file, string $label): void {
   .admin-header nav a.active { background:var(--grad); color:#fff; box-shadow:0 8px 20px -10px rgba(138,79,209,0.8); }
   .admin-header nav a.logout { color:var(--amber-soft); }
 
-  .admin-wrap { max-width:960px; margin:0 auto; padding:34px 20px 70px; }
+  .admin-wrap { max-width:1280px; margin:0 auto; padding:34px 20px 70px; }
   .admin-card {
     background:var(--paper-card); border:1px solid var(--border); border-radius:18px; padding:28px 30px; margin-bottom:26px;
     box-shadow:0 25px 55px -30px rgba(10,14,26,0.35);

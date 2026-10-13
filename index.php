@@ -244,14 +244,8 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
       $i = 0;
       while ($f = $fellowships->fetch_assoc()):
         $i++;
-        $img = db()->query("SELECT gi.filename FROM gallery_images gi JOIN gallery_categories gc ON gi.category_id=gc.id WHERE gc.slug='" . db()->real_escape_string($f['gallery_slug']) . "' LIMIT 1")->fetch_assoc();
       ?>
       <div class="fcard reveal reveal-delay-<?= $i ?>">
-        <?php if ($img): ?>
-        <div class="fimg-wrap">
-          <img src="<?= $base ?>assets/img/gallery/<?= h($f['gallery_slug']) ?>/<?= h($img['filename']) ?>" alt="<?= h($f['title']) ?>">
-        </div>
-        <?php endif; ?>
         <div class="fcard-body">
           <h3><?= h($f['title']) ?></h3>
           <p style="color: var(--text-muted); font-style: italic;">"<?= h($f['tagline']) ?>"</p>

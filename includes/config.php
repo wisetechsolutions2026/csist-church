@@ -73,3 +73,52 @@ function celebration_status(?string $date): string {
     $t = today_ist();
     return $date === $t ? 'today' : ($date > $t ? 'upcoming' : 'expired');
 }
+
+// Simple safe markup for fellowship text: blank line = new paragraph, "## " heading,
+// "- " list items (shown as chips), "> Label : Value" rows, and a line that is only a URL = button.
+function render_rich_text(string $text): string {
+    $out = '';
+    $blocks = preg_split('/\R{2,}/', trim(str_replace("\r\n", "\n", $text)));
+    foreach ($blocks as $block) {
+        $lines = array_values(array_filter(array_map('trim', explode("\n", $block)), fn($l) => $l !== ''));
+        if (!$lines) continue;
+        $i = 0;
+        $n = count($lines);
+        while ($i < $n) {
+            $line = $lines[$i];
+            if (strpos($line, '## ') === 0) {
+                $out .= '<h3 class="rt-heading reveal">' . h(substr($line, 3)) . '</h3>';
+                $i++;
+            } elseif (strpos($line, '- ') === 0) {
+                $out .= '<ul class="rt-chips reveal">';
+                while ($i < $n && strpos($lines[$i], '- ') === 0) {
+                    $out .= '<li>' . h(substr($lines[$i], 2)) . '</li>';
+                    $i++;
+                }
+                $out .= '</ul>';
+            } elseif (strpos($line, '> ') === 0) {
+                $out .= '<div class="rt-rows reveal">';
+                while ($i < $n && strpos($lines[$i], '> ') === 0) {
+                    $parts = explode(':', substr($lines[$i], 2), 2);
+                    $label = trim($parts[0]);
+                    $value = trim($parts[1] ?? '');
+                    $out .= '<div class="rt-row"><span>' . h($label) . '</span><strong>' . h($value) . '</strong></div>';
+                    $i++;
+                }
+                $out .= '</div>';
+            } elseif (preg_match('#^https?://\S+$#i', $line)) {
+                $isYt = preg_match('#youtube\.com|youtu\.be#i', $line);
+                $out .= '<p class="reveal"><a class="btn" href="' . h($line) . '" target="_blank" rel="noopener">' . ($isYt ? '&#9658; Watch on YouTube' : 'Visit link &rarr;') . '</a></p>';
+                $i++;
+            } else {
+                $para = [];
+                while ($i < $n && !preg_match('/^(## |- |> )/', $lines[$i]) && !preg_match('#^https?://\S+$#i', $lines[$i])) {
+                    $para[] = h($lines[$i]);
+                    $i++;
+                }
+                $out .= '<p class="reveal">' . implode('<br>', $para) . '</p>';
+            }
+        }
+    }
+    return $out;
+}
