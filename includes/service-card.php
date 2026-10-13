@@ -10,6 +10,7 @@ function render_service_card_body(): void {
     $spName = trim(setting('special_name'));
     $spDate = trim(setting('special_date'));
     $spTime = trim(setting('special_time'));
+    $spSpeaker = trim(setting('special_speaker'));
     $showSpecial = setting('special_enabled') === '1' && $spName !== '' && !celebration_is_expired($spDate ?: null);
     ?>
     <span class="service-flash-ribbon">This Sunday</span>
@@ -44,6 +45,7 @@ function render_service_card_body(): void {
         <?php if ($spDate !== ''): ?><span>&#128197; <?= h(format_ordinal_date($spDate)) ?></span><?php endif; ?>
         <?php if ($spTime !== ''): ?><span>&#128340; <?= h($spTime) ?></span><?php endif; ?>
       </div>
+      <?php if ($spSpeaker !== ''): ?><div class="service-special-speaker"><em>Message</em><?= h($spSpeaker) ?></div><?php endif; ?>
     </div>
     <?php endif; ?>
     <?php

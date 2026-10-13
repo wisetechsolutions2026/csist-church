@@ -849,3 +849,12 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .service-flash-times.three .service-time-speaker { flex-basis: 100%; }
   .service-flash-times.three .service-time-badge { flex-wrap: wrap; }
 }
+
+.service-special-speaker {
+  margin: 10px auto 0; padding-top: 10px; max-width: 360px; border-top: 1px solid rgba(247,214,133,0.3);
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: 1.25rem; color: var(--amber-soft);
+}
+.service-special-speaker em {
+  display: block; font-family: 'Inter', sans-serif; font-style: normal; font-weight: 600; font-size: 0.62rem;
+  letter-spacing: .16em; text-transform: uppercase; color: #cfc6ac; margin-bottom: 2px;
+}

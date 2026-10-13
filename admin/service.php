@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'special_name' => trim($_POST['special_name'] ?? ''),
         'special_date' => trim($_POST['special_date'] ?? ''),
         'special_time' => trim($_POST['special_time'] ?? ''),
+        'special_speaker' => trim($_POST['special_speaker'] ?? ''),
     ];
     $stmt = db()->prepare("INSERT INTO settings (setting_key, setting_value) VALUES (?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)");
     foreach ($values as $key => $value) {
@@ -39,6 +40,7 @@ $spEnabled = $get('special_enabled');
 $spName = $get('special_name');
 $spDate = $get('special_date');
 $spTime = $get('special_time');
+$spSpeaker = $get('special_speaker');
 ?>
 
 <div class="admin-card">
@@ -73,6 +75,8 @@ $spTime = $get('special_time');
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">Will display as: <strong><?= h($spDate ? format_ordinal_date($spDate) : '—') ?></strong></p>
     <label>Time</label>
     <input type="text" name="special_time" value="<?= h($spTime) ?>" placeholder="e.g. 7:00 PM">
+    <label>Speaker (optional)</label>
+    <input type="text" name="special_speaker" value="<?= h($spSpeaker) ?>" placeholder="e.g. Rev. Name">
 
     <button type="submit" class="btn" style="margin-top:24px;">Save</button>
   </form>
