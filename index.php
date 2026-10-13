@@ -238,25 +238,26 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
     <span class="section-eyebrow reveal">Fellowships</span>
     <h2 class="section-title reveal">Growing Together</h2>
     <div class="divider reveal"><span></span></div>
-    <div class="grid grid-3">
-      <?php
-      $fellowships = db()->query('SELECT * FROM fellowships ORDER BY sort_order LIMIT 3');
-      $i = 0;
-      while ($f = $fellowships->fetch_assoc()):
-        $i++;
-      ?>
+    <?php
+    $fellowshipRows = db()->query('SELECT * FROM fellowships WHERE is_active = 1 ORDER BY sort_order LIMIT 3')->fetch_all(MYSQLI_ASSOC);
+    $fCount = count($fellowshipRows);
+    ?>
+    <div class="grid grid-3"<?= $fCount === 1 ? ' style="grid-template-columns:minmax(0,440px); justify-content:center;"' : '' ?>>
+      <?php $i = 0; foreach ($fellowshipRows as $f): $i++; ?>
       <div class="fcard reveal reveal-delay-<?= $i ?>">
         <div class="fcard-body">
           <h3><?= h($f['title']) ?></h3>
           <p style="color: var(--text-muted); font-style: italic;">"<?= h($f['tagline']) ?>"</p>
-          <a href="<?= $base ?>fellowships?slug=<?= urlencode($f['slug']) ?>">Learn more &rarr;</a>
+          <a href="<?= $base ?>fellowships<?= $fCount === 1 ? '' : '?slug=' . urlencode($f['slug']) ?>">Learn more &rarr;</a>
         </div>
       </div>
-      <?php endwhile; ?>
+      <?php endforeach; ?>
     </div>
+    <?php if ($fCount > 1): ?>
     <div style="text-align:center; margin-top: 40px;" class="reveal">
       <a class="btn" href="<?= $base ?>fellowships">View All Fellowships</a>
     </div>
+    <?php endif; ?>
   </div>
 </section>
 

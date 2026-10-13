@@ -14,14 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = trim($_POST['title'] ?? '');
         $tagline = trim($_POST['tagline'] ?? '');
         $description = trim($_POST['description'] ?? '');
+        $isActive = isset($_POST['is_active']) ? 1 : 0;
 
         if ($id > 0) {
-            $stmt = db()->prepare("UPDATE fellowships SET slug=?, title=?, tagline=?, description=? WHERE id=?");
-            $stmt->bind_param('ssssi', $slug, $title, $tagline, $description, $id);
+            $stmt = db()->prepare("UPDATE fellowships SET slug=?, title=?, tagline=?, description=?, is_active=? WHERE id=?");
+            $stmt->bind_param('ssssii', $slug, $title, $tagline, $description, $isActive, $id);
         } else {
             $nextOrder = (int)(db()->query("SELECT COALESCE(MAX(sort_order),0)+1 n FROM fellowships")->fetch_assoc()['n']);
-            $stmt = db()->prepare("INSERT INTO fellowships (slug, title, tagline, description, gallery_slug, sort_order) VALUES (?, ?, ?, ?, '', ?)");
-            $stmt->bind_param('ssssi', $slug, $title, $tagline, $description, $nextOrder);
+            $stmt = db()->prepare("INSERT INTO fellowships (slug, title, tagline, description, gallery_slug, is_active, sort_order) VALUES (?, ?, ?, ?, '', ?, ?)");
+            $stmt->bind_param('ssssii', $slug, $title, $tagline, $description, $isActive, $nextOrder);
         }
         $stmt->execute();
         $flash = 'Saved.';
@@ -59,6 +60,8 @@ $all = db()->query("SELECT * FROM fellowships ORDER BY sort_order");
     <input type="text" name="title" value="<?= h($editRow['title'] ?? '') ?>" required>
     <label>Tagline</label>
     <input type="text" name="tagline" value="<?= h($editRow['tagline'] ?? '') ?>">
+    <label><input type="checkbox" name="is_active" <?= (!$editRow || $editRow['is_active']) ? 'checked' : '' ?>> Show on the website</label>
+    <p style="font-size:0.8rem; color:#6b5a4d; margin-top:4px;">When only one fellowship is shown, the Fellowships page opens that fellowship directly.</p>
     <label>Page content</label>
     <textarea name="description" rows="16"><?= h($editRow['description'] ?? '') ?></textarea>
     <p style="font-size:0.8rem; color:#6b5a4d; margin-top:6px; line-height:1.6;">Leave a blank line between paragraphs. Start a line with <code>## </code> for a heading, <code>- </code> for each name in a list, or <code>&gt; Label : Value</code> for rows like "Organist : Mr. X". A line that is just a web link becomes a button.</p>
@@ -71,11 +74,12 @@ $all = db()->query("SELECT * FROM fellowships ORDER BY sort_order");
   <h2>All Fellowships</h2>
   <div class="table-scroll">
   <table>
-    <tr><th>Title</th><th>Slug</th><th></th></tr>
+    <tr><th>Title</th><th>Slug</th><th>Status</th><th></th></tr>
     <?php while ($row = $all->fetch_assoc()): ?>
     <tr>
       <td><?= h($row['title']) ?></td>
       <td><?= h($row['slug']) ?></td>
+      <td><span class="badge <?= $row['is_active'] ? 'badge-on' : 'badge-off' ?>"><?= $row['is_active'] ? 'Visible' : 'Hidden' ?></span></td>
       <td class="row-actions">
         <a href="?edit=<?= (int)$row['id'] ?>">Edit</a>
         <form method="post" style="display:inline" onsubmit="return confirm('Delete this fellowship?');">

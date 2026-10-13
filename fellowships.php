@@ -1,19 +1,26 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 $pageTitle = 'Fellowships';
+$base = base_url();
+
+$active = db()->query('SELECT * FROM fellowships WHERE is_active = 1 ORDER BY sort_order')->fetch_all(MYSQLI_ASSOC);
 $slug = $_GET['slug'] ?? null;
 $one = null;
 if ($slug) {
-    $stmt = db()->prepare('SELECT * FROM fellowships WHERE slug = ?');
-    $stmt->bind_param('s', $slug);
-    $stmt->execute();
-    $one = $stmt->get_result()->fetch_assoc();
+    foreach ($active as $f) {
+        if ($f['slug'] === $slug) { $one = $f; break; }
+    }
+    if (!$one) {
+        header('Location: ' . $base . 'fellowships', true, 301);
+        exit;
+    }
+} elseif (count($active) === 1) {
+    $one = $active[0];
 }
 if ($one) {
     $pageTitle = $one['title'];
 }
 require __DIR__ . '/includes/header.php';
-$base = base_url();
 ?>
 
 <div class="page-hero">
@@ -26,7 +33,9 @@ $base = base_url();
   <div class="container fellowship-body">
     <div class="divider reveal"><span></span></div>
     <?= render_rich_text($one['description'] ?? '') ?>
+    <?php if (count($active) > 1): ?>
     <div style="margin-top: 34px;" class="reveal"><a class="btn" href="<?= $base ?>fellowships">&larr; All Fellowships</a></div>
+    <?php endif; ?>
   </div>
 </section>
 
@@ -34,12 +43,7 @@ $base = base_url();
 <section>
   <div class="container">
     <div class="grid grid-3">
-      <?php
-      $all = db()->query('SELECT * FROM fellowships ORDER BY sort_order');
-      $i = 0;
-      while ($f = $all->fetch_assoc()):
-        $i++;
-      ?>
+      <?php $i = 0; foreach ($active as $f): $i++; ?>
       <div class="fcard reveal reveal-delay-<?= min($i, 3) ?>">
         <div class="fcard-body">
           <h3><?= h($f['title']) ?></h3>
@@ -47,7 +51,8 @@ $base = base_url();
           <a href="<?= $base ?>fellowships?slug=<?= urlencode($f['slug']) ?>">Learn more &rarr;</a>
         </div>
       </div>
-      <?php endwhile; ?>
+      <?php endforeach; ?>
+      <?php if (!$active): ?><p style="grid-column:1/-1; text-align:center; color:var(--text-muted);">Coming soon.</p><?php endif; ?>
     </div>
   </div>
 </section>
