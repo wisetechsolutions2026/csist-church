@@ -86,7 +86,9 @@ function nav_link(string $file, string $label): void {
 
   @media (max-width: 600px) {
     .admin-header { padding:12px 16px; flex-direction:column; align-items:flex-start; position:static; }
-    .admin-header nav { width:100%; }
+    .admin-header nav { width:100%; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:4px; }
+    .admin-header nav::-webkit-scrollbar { display:none; }
+    .admin-header nav a { white-space:nowrap; flex:none; }
     .admin-header nav a { padding:6px 12px; font-size:0.8rem; }
     .admin-wrap { padding:20px 14px 50px; }
     .admin-card { padding:22px 18px; border-radius:16px; }

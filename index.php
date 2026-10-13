@@ -150,6 +150,9 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
   if (typeof fitCelebrationNames === 'function') setTimeout(fitCelebrationNames, 50);
   var auto = setTimeout(close, 5000);
   s.querySelector('.splash-close').addEventListener('click', function () { clearTimeout(auto); });
+  function holdOpen() { clearTimeout(auto); var t = s.querySelector('.splash-timer'); if (t) t.style.display = 'none'; }
+  s.addEventListener('touchstart', holdOpen, { passive: true, once: true });
+  s.addEventListener('wheel', holdOpen, { passive: true, once: true });
 })();
 </script>
 <?php endif; ?>

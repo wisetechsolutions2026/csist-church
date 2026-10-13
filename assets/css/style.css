@@ -858,3 +858,35 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   display: block; font-family: 'Inter', sans-serif; font-style: normal; font-weight: 600; font-size: 0.62rem;
   letter-spacing: .16em; text-transform: uppercase; color: #cfc6ac; margin-bottom: 2px;
 }
+
+/* Mobile: compact two-up cards in the splash so many cards + the service card fit */
+@media (max-width: 600px) {
+  .celeb-splash { padding: 22px 12px 30px; }
+  .splash-title { font-size: 2.3rem; }
+  .splash-sub { margin: 4px 0 18px; font-size: 0.85rem; letter-spacing: .04em; }
+  .splash-cards { gap: 12px; margin-bottom: 20px; }
+  .splash-cards .celebration-card { width: calc(50% - 6px); max-width: none; border-radius: 16px; }
+  .splash-cards .celebration-photo-wrap { height: 118px; }
+  .splash-cards .celebration-icon { font-size: 2.6rem; }
+  .splash-cards .celebration-body { padding: 0 10px 14px; margin-top: -16px; }
+  .splash-cards .celebration-label { font-size: 0.56rem; letter-spacing: .1em; }
+  .splash-cards .celebration-name { font-size: 1.05rem; height: 3.4rem; }
+  .splash-cards .celebration-name.is-couple { font-size: 0.9rem; }
+  .splash-cards .celebration-date { font-size: 0.7rem; }
+  .splash-cards .card-fx span { font-size: 1.1rem; }
+  .splash-cards .card-fx .burst { display: none; }
+  .splash-service { margin-bottom: 20px; }
+  .splash-service .service-flash-card { max-width: 100%; }
+}
+
+@media (max-width: 700px) {
+  .service-flash-times.three .service-time-label { flex: 1 1 0; min-width: 0; text-align: left; margin-left: 12px; line-height: 1.3; font-size: 0.68rem; }
+  .service-flash-times.three .service-time-value { flex: none; white-space: nowrap; }
+}
+
+@media (max-width: 600px) {
+  .gallery-filter { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .gf-field select { min-width: 0; width: 100%; }
+  .gf-clear, .gf-count { grid-column: 1 / -1; text-align: center; padding: 6px; }
+  .gf-clear { padding: 10px 18px; }
+}
