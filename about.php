@@ -24,7 +24,7 @@ function initials(string $name): string {
     <h2 class="section-title reveal">Our History</h2>
     <div class="divider reveal"><span></span></div>
     <div class="grid grid-2" style="align-items: center; gap: 50px;">
-      <div class="reveal">
+      <div class="reveal history-text">
         <?php foreach (explode("\n\n", setting('history')) as $para): ?>
           <p><?= h($para) ?></p>
         <?php endforeach; ?>
