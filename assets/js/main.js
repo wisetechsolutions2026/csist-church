@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function render() {
       slides.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
+      slider.classList.toggle('clean-active', slides[idx].hasAttribute('data-clean'));
       if (dotsWrap) {
         Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
           d.classList.toggle('active', i === idx);
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (nextBtn) nextBtn.addEventListener('click', function () { next(); resetTimer(); });
     if (prevBtn) prevBtn.addEventListener('click', function () { prev(); resetTimer(); });
 
+    window.resetHeroSlider = function () { goTo(0); resetTimer(); };
     render();
     resetTimer();
   }

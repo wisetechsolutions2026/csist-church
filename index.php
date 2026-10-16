@@ -16,6 +16,7 @@ function initials(string $name): string {
 
 <?php
 $slides = [
+    ['img' => 'church-front.webp', 'caption' => 'CSI St. Matthew\'s Church, Porur', 'clean' => true],
     ['img' => 'stock-cathedral.jpg', 'caption' => 'Engaging God\'s world through faith'],
     ['img' => 'stock-stainedglass.jpg', 'caption' => 'Light of the Gospel, ever shining'],
     ['img' => 'stock-candle.jpg', 'caption' => 'Gathered in prayer and worship'],
@@ -23,11 +24,11 @@ $slides = [
     ['img' => 'stock-bible.jpg', 'caption' => 'Rooted in His word'],
 ];
 ?>
-<div class="hero-slider">
-  <?php foreach ($slides as $i => $s): ?>
-  <div class="slide <?= $i === 0 ? 'active' : '' ?>">
+<div class="hero-slider<?= !empty($slides[0]['clean']) ? ' clean-active' : '' ?>">
+  <?php foreach ($slides as $i => $s): $clean = !empty($s['clean']); ?>
+  <div class="slide <?= $i === 0 ? 'active' : '' ?><?= $clean ? ' slide-clean' : '' ?>"<?= $clean ? ' data-clean="1" style="--slide-url:url(' . $base . 'assets/img/slider/' . h($s['img']) . ')"' : '' ?>>
     <div class="slide-img" style="background-image: url('<?= $base ?>assets/img/slider/<?= h($s['img']) ?>');"></div>
-    <div class="slide-overlay"></div>
+    <div class="slide-overlay<?= $clean ? ' slide-overlay-light' : '' ?>"></div>
   </div>
   <?php endforeach; ?>
 
@@ -140,6 +141,7 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
   function close() {
     try { sessionStorage.setItem(key, '1'); } catch (e) {}
     s.classList.add('closing');
+    if (window.resetHeroSlider) window.resetHeroSlider();
     setTimeout(function () { s.hidden = true; document.documentElement.style.overflow = ''; }, 500);
     document.removeEventListener('keydown', onKey);
   }
