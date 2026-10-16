@@ -177,11 +177,21 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
 </div>
 <?php endif; ?>
 
-<section class="verse-banner-section">
-  <a class="verse-banner lightbox-link" href="<?= $base ?>assets/img/banners/verse-of-month.jpg" data-caption="இம்மாத இறைவார்த்தை — திருப்பாடல் 37:4-5" aria-label="View the verse of the month larger">
-    <img src="<?= $base ?>assets/img/banners/verse-of-month.jpg" alt="இம்மாத இறைவார்த்தை — திருப்பாடல் 37:4-5" loading="lazy">
-  </a>
+<?php if (setting('verse_enabled') === '1' && trim(setting('verse_text')) !== ''): ?>
+<section class="verse-section">
+  <div class="container">
+    <div class="verse-card reveal">
+      <div class="verse-photo"><img src="<?= $base ?>assets/img/slider/stock-cross.jpg" alt="" loading="lazy"></div>
+      <div class="verse-body">
+        <span class="verse-eyebrow"><?= h(setting('verse_title', 'இம்மாத இறைவார்த்தை')) ?></span>
+        <div class="verse-divider"><span></span></div>
+        <blockquote class="verse-text"><?= render_verse_text(setting('verse_text')) ?></blockquote>
+        <?php if (trim(setting('verse_ref')) !== ''): ?><span class="verse-ref"><?= h(setting('verse_ref')) ?></span><?php endif; ?>
+      </div>
+    </div>
+  </div>
 </section>
+<?php endif; ?>
 
 <section class="dark">
   <div class="container">

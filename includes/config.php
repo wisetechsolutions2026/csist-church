@@ -122,3 +122,10 @@ function render_rich_text(string $text): string {
     }
     return $out;
 }
+
+// Verse text: *word* becomes a highlighted word, line breaks are kept.
+function render_verse_text(string $text): string {
+    $t = h(trim($text));
+    $t = preg_replace('/\*(.+?)\*/u', '<em>$1</em>', $t);
+    return nl2br($t, false);
+}
