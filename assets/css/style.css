@@ -910,8 +910,11 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .hero-slider .slide.slide-clean .slide-overlay { z-index: 2; }
 }
 
-/* Verse of the month banner (below the service card) */
-.verse-banner-section { padding: 46px 0 6px; }
-.verse-banner { margin: 0; border-radius: 22px; overflow: hidden; border: 1px solid rgba(242,182,50,0.45); box-shadow: 0 28px 60px -26px rgba(10,14,26,0.55); background: #f3e6c8; }
-.verse-banner img { display: block; width: 100%; height: auto; }
-@media (max-width: 600px) { .verse-banner-section { padding: 30px 0 0; } .verse-banner { border-radius: 14px; } }
+/* Verse of the month: its own full-width band, separate from the cards above */
+.verse-banner-section { margin-top: 70px; padding: 0; background: var(--ink); border-top: 3px solid var(--amber); border-bottom: 3px solid var(--amber); }
+.verse-banner { display: block; width: 100%; cursor: zoom-in; line-height: 0; }
+.verse-banner img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; object-position: center; }
+@media (max-width: 700px) {
+  .verse-banner-section { margin-top: 46px; }
+  .verse-banner img { max-height: none; }
+}
