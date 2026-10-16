@@ -17,6 +17,7 @@ function initials(string $name): string {
 <?php
 $slides = [
     ['img' => 'church-front.webp', 'caption' => 'CSI St. Matthew\'s Church, Porur', 'clean' => true],
+    ['img' => 'verse-of-month.jpg', 'caption' => 'Verse of the month', 'clean' => true, 'fit' => true],
     ['img' => 'stock-cathedral.jpg', 'caption' => 'Engaging God\'s world through faith'],
     ['img' => 'stock-stainedglass.jpg', 'caption' => 'Light of the Gospel, ever shining'],
     ['img' => 'stock-candle.jpg', 'caption' => 'Gathered in prayer and worship'],
@@ -26,7 +27,7 @@ $slides = [
 ?>
 <div class="hero-slider<?= !empty($slides[0]['clean']) ? ' clean-active' : '' ?>">
   <?php foreach ($slides as $i => $s): $clean = !empty($s['clean']); ?>
-  <div class="slide <?= $i === 0 ? 'active' : '' ?><?= $clean ? ' slide-clean' : '' ?>"<?= $clean ? ' data-clean="1" style="--slide-url:url(' . $base . 'assets/img/slider/' . h($s['img']) . ')"' : '' ?>>
+  <div class="slide <?= $i === 0 ? 'active' : '' ?><?= $clean ? ' slide-clean' : '' ?><?= !empty($s['fit']) ? ' slide-fit' : '' ?>"<?= $clean ? ' data-clean="1" style="--slide-url:url(' . $base . 'assets/img/slider/' . h($s['img']) . ')"' : '' ?>>
     <div class="slide-img" style="background-image: url('<?= $base ?>assets/img/slider/<?= h($s['img']) ?>');"></div>
     <div class="slide-overlay<?= $clean ? ' slide-overlay-light' : '' ?>"></div>
   </div>
