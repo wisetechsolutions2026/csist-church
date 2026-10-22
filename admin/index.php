@@ -11,7 +11,8 @@ $tiles = [
     ['users', '&#128101;', 'Users', 'Add admin users, change their access and passwords.', true],
     ['magazines', '&#128214;', 'Magazines', 'Upload monthly magazine PDFs.', false],
     ['gallery', '&#128247;', 'Gallery', 'Create events with a date and upload their photos.', false],
-    ['verse', '&#10013;&#65039;', 'Verse of the Month', 'Edit the verse shown beside the cross on the home page.', false],
+    ['verse', '&#10013;&#65039;', 'Verse of the Month', 'Edit the verse shown in the home page slider.', false],
+    ['branches', '&#9962;', 'Branch Churches', 'Edit the branch churches, their catechists and photos.', false],
 ];
 ?>
 <style>

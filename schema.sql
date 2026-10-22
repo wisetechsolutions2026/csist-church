@@ -92,3 +92,13 @@ CREATE TABLE IF NOT EXISTS admin_users (
   role ENUM('super','limited') NOT NULL DEFAULT 'limited',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
+-- Branch churches (managed at /admin/branches)
+CREATE TABLE IF NOT EXISTS branch_churches (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  location VARCHAR(150) NOT NULL DEFAULT '',
+  catechist VARCHAR(150) NOT NULL DEFAULT '',
+  photo VARCHAR(255) DEFAULT NULL,
+  sort_order INT NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

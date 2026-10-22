@@ -55,6 +55,7 @@ $ogDesc = setting('site_name') . ', ' . setting('site_location') . ' — ' . set
         <?= navlink('index.php', 'Home', $current, $base) ?>
         <?= navlink('about.php', 'About Us', $current, $base) ?>
         <?= navlink('fellowships.php', 'Fellowships', $current, $base) ?>
+        <?= navlink('branch-churches.php', 'Branches', $current, $base) ?>
         <?= navlink('gallery.php', 'Gallery', $current, $base) ?>
         <?= navlink('live-streaming.php', 'Live Streaming', $current, $base) ?>
         <?= navlink('magazines.php', 'Magazine', $current, $base) ?>

@@ -10,6 +10,7 @@
       <h4>Quick Links</h4>
       <p><a href="<?= $base ?>about">About Us</a></p>
       <p><a href="<?= $base ?>fellowships">Fellowships</a></p>
+      <p><a href="<?= $base ?>branch-churches">Branch Churches</a></p>
       <p><a href="<?= $base ?>gallery">Gallery</a></p>
       <p><a href="<?= $base ?>live-streaming">Live Streaming</a></p>
     </div>
