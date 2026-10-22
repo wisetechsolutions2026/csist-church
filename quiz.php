@@ -53,7 +53,6 @@ require __DIR__ . '/includes/header.php';
         <button type="button" data-sort="rank" class="active">By rank</button>
         <button type="button" data-sort="name">A &ndash; Z</button>
       </div>
-      <button type="button" class="quiz-auto" id="quizAuto" aria-pressed="true"><span class="qa-ico">&#10074;&#10074;</span> <span class="qa-txt">Auto-scroll on</span></button>
     </div>
 
     <div class="quiz-table-wrap reveal">
@@ -109,42 +108,6 @@ require __DIR__ . '/includes/header.php';
     empty.hidden = shown !== 0;
   }
   search.addEventListener('input', filter);
-
-  // Auto-scrolling list: glides through the results, pauses when touched / hovered / searched
-  var wrap = document.querySelector('.quiz-table-wrap');
-  var autoBtn = document.getElementById('quizAuto');
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var autoOn = !reduce, hold = false, pos = 0, last = 0, endAt = 0, resumeAt = 0, speed = 28;
-  function paintBtn() {
-    autoBtn.setAttribute('aria-pressed', autoOn ? 'true' : 'false');
-    autoBtn.classList.toggle('off', !autoOn);
-    autoBtn.querySelector('.qa-txt').textContent = autoOn ? 'Auto-scroll on' : 'Auto-scroll off';
-    autoBtn.querySelector('.qa-ico').innerHTML = autoOn ? '&#10074;&#10074;' : '&#9654;';
-  }
-  autoBtn.addEventListener('click', function () { autoOn = !autoOn; pos = wrap.scrollTop; paintBtn(); });
-  wrap.addEventListener('mouseenter', function () { hold = true; });
-  wrap.addEventListener('mouseleave', function () { hold = false; pos = wrap.scrollTop; });
-  wrap.addEventListener('touchstart', function () { resumeAt = Date.now() + 6000; }, { passive: true });
-  wrap.addEventListener('wheel', function () { resumeAt = Date.now() + 6000; }, { passive: true });
-  wrap.addEventListener('scroll', function () { if (Math.abs(wrap.scrollTop - pos) > 3) { pos = wrap.scrollTop; } }, { passive: true });
-  function tick(ts) {
-    var dt = last ? Math.min(ts - last, 80) : 16;
-    last = ts;
-    var can = autoOn && !hold && !search.value && Date.now() > resumeAt && document.visibilityState === 'visible';
-    if (can) {
-      if (wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 2) {
-        if (!endAt) endAt = ts;
-        if (ts - endAt > 2500) { pos = 0; wrap.scrollTop = 0; endAt = 0; }
-      } else {
-        endAt = 0;
-        pos += speed * dt / 1000;
-        wrap.scrollTop = pos;
-      }
-    }
-    requestAnimationFrame(tick);
-  }
-  paintBtn();
-  requestAnimationFrame(tick);
   document.querySelectorAll('.quiz-sort button').forEach(function (b) {
     b.addEventListener('click', function () {
       document.querySelectorAll('.quiz-sort button').forEach(function (x) { x.classList.toggle('active', x === b); });

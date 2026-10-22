@@ -1012,13 +1012,3 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .quiz-table { font-size: 0.85rem; }
   .quiz-table .q-name { min-width: 150px; }
 }
-
-/* Quiz: fixed-height list that auto-scrolls */
-.quiz-table-wrap { max-height: 560px; overflow-y: auto; scroll-behavior: auto; }
-.quiz-auto {
-  display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 30px; cursor: pointer;
-  border: 1px solid var(--sapphire); background: rgba(58,99,200,0.08); color: var(--sapphire); font: 600 0.85rem 'Inter', sans-serif;
-}
-.quiz-auto.off { border-color: var(--border); background: var(--paper-card); color: var(--text-muted); }
-.quiz-auto .qa-ico { font-size: 0.7rem; letter-spacing: -2px; }
-@media (max-width: 700px) { .quiz-table-wrap { max-height: 62vh; } .quiz-tools { gap: 10px; } }
