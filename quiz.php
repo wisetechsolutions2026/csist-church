@@ -55,7 +55,7 @@ require __DIR__ . '/includes/header.php';
       </div>
     </div>
 
-    <div class="quiz-table-wrap reveal">
+    <div class="quiz-table-wrap">
       <table class="quiz-table" id="quizTable">
         <thead>
           <tr>
