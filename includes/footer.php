@@ -13,6 +13,7 @@
       <p><a href="<?= $base ?>branch-churches">Branch Churches</a></p>
       <p><a href="<?= $base ?>gallery">Gallery</a></p>
       <p><a href="<?= $base ?>live-streaming">Live Streaming</a></p>
+      <p><a href="<?= $base ?>quiz">Quiz</a></p>
     </div>
     <div>
       <h4>Contact</h4>

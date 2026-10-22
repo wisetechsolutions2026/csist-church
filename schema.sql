@@ -102,3 +102,13 @@ CREATE TABLE IF NOT EXISTS branch_churches (
   photo VARCHAR(255) DEFAULT NULL,
   sort_order INT NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Quiz results (managed at /admin/quiz; public page /quiz). marks = comma-separated per month, empty = absent.
+CREATE TABLE IF NOT EXISTS quiz_results (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sno INT NOT NULL,
+  name VARCHAR(150) NOT NULL,
+  sub VARCHAR(20) DEFAULT NULL,
+  marks VARCHAR(120) NOT NULL,
+  total DECIMAL(6,1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

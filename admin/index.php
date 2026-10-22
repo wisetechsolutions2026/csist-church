@@ -13,6 +13,7 @@ $tiles = [
     ['gallery', '&#128247;', 'Gallery', 'Create events with a date and upload their photos.', false],
     ['verse', '&#10013;&#65039;', 'Verse of the Month', 'Edit the verse shown in the home page slider.', false],
     ['branches', '&#9962;', 'Branch Churches', 'Edit the branch churches, their catechists and photos.', false],
+    ['quiz', '&#127942;', 'Quiz Results', 'Paste the latest consolidated quiz table to update the Quiz page.', false],
 ];
 ?>
 <style>
