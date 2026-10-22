@@ -27,11 +27,11 @@ $ref = $get('verse_ref');
 
 <div class="admin-card">
   <h2>Verse of the Month</h2>
-  <p>Shown on the home page, below the Sunday service card, next to the cross picture.</p>
+  <p>Shown as the 2nd picture in the home page slider.</p>
   <?php if ($flash): ?><div class="flash"><?= h($flash) ?></div><?php endif; ?>
   <form method="post">
     <label><input type="checkbox" name="enabled" <?= $enabled === '1' ? 'checked' : '' ?>> Show this section on the home page</label>
-    <label>Heading</label>
+    <label>Heading (shown on phones — on wide screens the picture already has its own heading)</label>
     <input type="text" name="verse_title" value="<?= h($title) ?>" placeholder="இம்மாத இறைவார்த்தை" required>
     <label>Verse</label>
     <textarea name="verse_text" rows="8" required><?= h($text) ?></textarea>

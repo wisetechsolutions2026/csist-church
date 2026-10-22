@@ -910,34 +910,41 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .hero-slider .slide.slide-clean .slide-overlay { z-index: 2; }
 }
 
-/* Verse of the Month: a full-width section of its own (cross photo | verse text), edited from admin */
-.verse-section {
-  margin-top: 80px; padding: 0; display: grid; grid-template-columns: minmax(260px, 0.8fr) 1.6fr;
-  border-top: 3px solid var(--amber); border-bottom: 3px solid var(--amber);
-  background: radial-gradient(circle at 25% 20%, var(--ink-3), var(--ink) 80%);
+/* Verse of the Month: 2nd slider slide (picture has its own heading; verse text is live, edited from admin) */
+.hero-slider .slide.slide-verse .slide-overlay { background: none; }
+.verse-slide-ui { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.verse-stage { position: relative; width: min(100%, calc(96vh * 2.6667)); aspect-ratio: 2000 / 750; container-type: inline-size; }
+.hero-slider .slide.slide-verse .slide-img { background-size: contain; background-repeat: no-repeat; background-position: center; z-index: 1; background-color: transparent; }
+.hero-slider .slide.slide-verse::before {
+  content: ''; position: absolute; inset: -30px; z-index: 0;
+  background: var(--slide-url) center / cover no-repeat; filter: blur(24px);
 }
-.verse-photo { position: relative; min-height: 440px; }
-.verse-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 8% center; }
-.verse-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 50%, rgba(10,14,26,0.97) 100%); }
-.verse-body {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  padding: 64px 6vw 64px 20px; gap: 6px;
+.verse-slide-text {
+  position: absolute; left: 55%; width: 41%; top: 29%;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
   font-family: 'Noto Sans Tamil', 'Nirmala UI', 'Latha', 'Tamil Sangam MN', sans-serif;
 }
-.verse-eyebrow { font-size: 1.25rem; font-weight: 700; color: var(--amber-soft); letter-spacing: .04em; }
-.verse-divider { display: flex; align-items: center; gap: 12px; width: 160px; margin: 10px 0 18px; }
-.verse-divider::before, .verse-divider::after { content: ''; height: 1px; flex: 1; background: linear-gradient(90deg, transparent, var(--amber), transparent); }
-.verse-divider span { width: 8px; height: 8px; border-radius: 2px; background: var(--glass-gradient); transform: rotate(45deg); }
-.verse-text { margin: 0; padding: 0; border: 0; color: #fff; font-size: clamp(1.15rem, 2vw, 1.65rem); line-height: 1.9; font-weight: 400; }
-.verse-text em { font-style: normal; font-weight: 700; color: var(--amber); }
-.verse-ref {
-  display: inline-block; margin-top: 26px; padding: 10px 28px; border-radius: 30px; font-size: 0.98rem; font-weight: 600;
-  background: linear-gradient(120deg, var(--amber), var(--amber-soft)); color: var(--ink);
-  box-shadow: 0 14px 28px -14px rgba(242,182,50,0.7);
+.verse-slide-title { display: none; }
+.verse-slide-quote { margin: 0; padding: 0; border: 0; color: #1b2a5c; font-size: 1.7vw; font-size: 1.7cqw; line-height: 1.75; font-weight: 500; text-shadow: 0 1px 10px rgba(255,255,255,0.85); }
+.verse-slide-quote em { font-style: normal; font-weight: 700; color: #c0392b; }
+.verse-slide-ref {
+  display: inline-block; margin-top: 2.2cqw; padding: 0.55cqw 1.8cqw; border-radius: 6px; background: #1b2a5c; color: #fff;
+  font-size: 1.15vw; font-size: 1.15cqw; font-weight: 600; box-shadow: 0 10px 24px -12px rgba(10,14,26,0.6);
 }
-@media (max-width: 800px) {
-  .verse-section { margin-top: 56px; grid-template-columns: 1fr; }
-  .verse-photo { min-height: 0; height: 240px; }
-  .verse-photo::after { background: linear-gradient(180deg, transparent 50%, rgba(10,14,26,0.97) 100%); }
-  .verse-body { padding: 10px 24px 46px; }
+@media (max-width: 899px) {
+  /* phones/tablets: church picture fills the slide, verse shows on a glass panel with its own heading */
+  .hero-slider .slide.slide-verse::before { display: none; }
+  .hero-slider .slide.slide-verse .slide-img { background-size: cover; background-position: 27% center; }
+  .hero-slider .slide.slide-verse .slide-overlay { background: linear-gradient(180deg, rgba(10,14,26,0.05) 30%, rgba(10,14,26,0.55) 100%); }
+  .verse-slide-ui { align-items: flex-end; padding: 0 16px 74px; }
+  .verse-stage { width: 100%; aspect-ratio: auto; container-type: normal; }
+  .verse-slide-text {
+    position: static; width: 100%; padding: 22px 18px 24px; border-radius: 20px;
+    background: rgba(10,14,26,0.66); border: 1px solid rgba(242,182,50,0.5);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  .verse-slide-title { display: block; color: var(--amber-soft); font-weight: 700; font-size: 1.1rem; margin-bottom: 10px; }
+  .verse-slide-quote { color: #fff; font-size: 1.02rem; line-height: 1.75; text-shadow: none; font-weight: 400; }
+  .verse-slide-quote em { color: var(--amber); }
+  .verse-slide-ref { margin-top: 14px; padding: 8px 20px; border-radius: 30px; font-size: 0.9rem; background: linear-gradient(120deg, var(--amber), var(--amber-soft)); color: var(--ink); }
 }

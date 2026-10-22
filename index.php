@@ -15,23 +15,37 @@ function initials(string $name): string {
 ?>
 
 <?php
-$slides = [
-    ['img' => 'church-front.webp', 'caption' => 'CSI St. Matthew\'s Church, Porur', 'clean' => true],
+$verseOn = setting('verse_enabled') === '1' && trim(setting('verse_text')) !== '';
+$slides = [['img' => 'church-front.webp', 'caption' => 'CSI St. Matthew\'s Church, Porur', 'clean' => true]];
+if ($verseOn) {
+    $slides[] = ['img' => 'verse-slide.webp', 'caption' => 'Verse of the month', 'clean' => true, 'verse' => true];
+}
+$slides = array_merge($slides, [
     ['img' => 'stock-cathedral.jpg', 'caption' => 'Engaging God\'s world through faith'],
     ['img' => 'stock-stainedglass.jpg', 'caption' => 'Light of the Gospel, ever shining'],
     ['img' => 'stock-candle.jpg', 'caption' => 'Gathered in prayer and worship'],
     ['img' => 'stock-cross.jpg', 'caption' => 'For God so loved the world'],
     ['img' => 'stock-bible.jpg', 'caption' => 'Rooted in His word'],
-];
+]);
 ?>
 <div class="hero-slider<?= !empty($slides[0]['clean']) ? ' clean-active' : '' ?>">
-  <?php foreach ($slides as $i => $s): $clean = !empty($s['clean']); ?>
-  <div class="slide <?= $i === 0 ? 'active' : '' ?><?= $clean ? ' slide-clean' : '' ?>"<?= $clean ? ' data-clean="1" style="--slide-url:url(' . $base . 'assets/img/slider/' . h($s['img']) . ')"' : '' ?>>
+  <?php foreach ($slides as $i => $s): $clean = !empty($s['clean']); $isVerse = !empty($s['verse']); ?>
+  <div class="slide <?= $i === 0 ? 'active' : '' ?><?= $clean ? ' slide-clean' : '' ?><?= $isVerse ? ' slide-verse' : '' ?>"<?= $clean ? ' data-clean="1" style="--slide-url:url(' . $base . 'assets/img/slider/' . h($s['img']) . ')"' : '' ?>>
     <div class="slide-img" style="background-image: url('<?= $base ?>assets/img/slider/<?= h($s['img']) ?>');"></div>
     <div class="slide-overlay<?= $clean ? ' slide-overlay-light' : '' ?>"></div>
+    <?php if ($isVerse): ?>
+    <div class="verse-slide-ui">
+      <div class="verse-stage">
+        <div class="verse-slide-text">
+          <span class="verse-slide-title"><?= h(setting('verse_title', 'இம்மாத இறைவார்த்தை')) ?></span>
+          <blockquote class="verse-slide-quote"><?= render_verse_text(setting('verse_text')) ?></blockquote>
+          <?php if (trim(setting('verse_ref')) !== ''): ?><span class="verse-slide-ref"><?= h(setting('verse_ref')) ?></span><?php endif; ?>
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
   </div>
   <?php endforeach; ?>
-
   <div class="hero-content">
     <span class="hero-eyebrow">Est. in the 1990s &middot; Madras Diocese</span>
     <h1 class="word-reveal"><?= h(setting('site_name')) ?></h1>
@@ -177,17 +191,6 @@ function render_celebration_card(array $c, string $label, string $fallbackIcon, 
 </div>
 <?php endif; ?>
 
-<?php if (setting('verse_enabled') === '1' && trim(setting('verse_text')) !== ''): ?>
-<section class="verse-section">
-  <div class="verse-photo"><img src="<?= $base ?>assets/img/slider/stock-cross.jpg" alt="" loading="lazy"></div>
-  <div class="verse-body reveal">
-    <span class="verse-eyebrow"><?= h(setting('verse_title', 'இம்மாத இறைவார்த்தை')) ?></span>
-    <div class="verse-divider"><span></span></div>
-    <blockquote class="verse-text"><?= render_verse_text(setting('verse_text')) ?></blockquote>
-    <?php if (trim(setting('verse_ref')) !== ''): ?><span class="verse-ref"><?= h(setting('verse_ref')) ?></span><?php endif; ?>
-  </div>
-</section>
-<?php endif; ?>
 
 <section class="dark">
   <div class="container">
