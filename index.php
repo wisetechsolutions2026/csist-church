@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/service-card.php';
+require_once __DIR__ . '/includes/obituary.php';
 $pageTitle = 'Home';
 $leaders = db()->query('SELECT * FROM leaders ORDER BY sort_order');
 require __DIR__ . '/includes/header.php';
@@ -62,6 +63,16 @@ $slides = array_merge($slides, [
   </div>
   <div class="slider-dots"></div>
 </div>
+
+<?php $obits = obit_load_current(); if ($obits): ?>
+<section class="obit-section">
+  <div class="container">
+    <div class="obit-list">
+      <?php foreach ($obits as $o) { render_obit_card($o, $base); } ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
 
 <?php
 $serviceEnabled = setting('service_card_enabled') === '1';

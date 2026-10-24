@@ -112,3 +112,21 @@ CREATE TABLE IF NOT EXISTS quiz_results (
   marks VARCHAR(120) NOT NULL,
   total DECIMAL(6,1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Obituary notices (managed at /admin/obituaries; public /obituaries; shown on the home page until the day after the funeral)
+CREATE TABLE IF NOT EXISTS obituaries (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  age VARCHAR(10) NOT NULL DEFAULT '',
+  photo VARCHAR(255) DEFAULT NULL,
+  passed_on DATE DEFAULT NULL,
+  address VARCHAR(300) NOT NULL DEFAULT '',
+  phone VARCHAR(60) NOT NULL DEFAULT '',
+  service_title VARCHAR(120) NOT NULL DEFAULT 'Funeral Service',
+  service_place VARCHAR(250) NOT NULL DEFAULT '',
+  service_date DATE DEFAULT NULL,
+  service_time VARCHAR(10) NOT NULL DEFAULT '',
+  note VARCHAR(300) NOT NULL DEFAULT '',
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

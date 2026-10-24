@@ -14,6 +14,7 @@ $tiles = [
     ['verse', '&#10013;&#65039;', 'Verse of the Month', 'Edit the verse shown in the home page slider.', false],
     ['branches', '&#9962;', 'Branch Churches', 'Edit the branch churches, their catechists and photos.', false],
     ['quiz', '&#127942;', 'Quiz Results', 'Paste the latest consolidated quiz table to update the Quiz page.', false],
+    ['obituaries', '&#128367;&#65039;', 'Obituary Notices', 'Announce a church member\'s passing: photo, address, phone and funeral time.', false],
 ];
 ?>
 <style>

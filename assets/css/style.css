@@ -1012,3 +1012,50 @@ footer.site-footer a:hover { color: var(--amber-soft); }
   .quiz-table { font-size: 0.85rem; }
   .quiz-table .q-name { min-width: 150px; }
 }
+
+/* Obituary notices */
+.obit-section { padding: 46px 0 6px; }
+.obit-wrap { max-width: 980px; }
+.obit-list { display: grid; gap: 26px; max-width: 980px; margin: 0 auto; }
+.obit-heading { text-align: center; font-size: 1.7rem; margin: 10px 0 24px; color: var(--ink-3); }
+.obit-list + .obit-heading { margin-top: 56px; }
+.obit-card {
+  display: grid; grid-template-columns: 210px 1fr; gap: 0; overflow: hidden; border-radius: 24px;
+  background: radial-gradient(circle at 15% 20%, #2a2f3d, #12151e 80%); color: #ecebf2;
+  border: 1px solid rgba(247,214,133,0.38); box-shadow: 0 28px 60px -28px rgba(10,14,26,0.7);
+}
+.obit-archive { background: radial-gradient(circle at 15% 20%, #34384a, #1a1d29 80%); }
+.obit-photo {
+  position: relative; display: flex; align-items: center; justify-content: center; padding: 28px 10px 28px 28px;
+  background: radial-gradient(circle at 50% 40%, rgba(247,214,133,0.18), transparent 70%);
+}
+.obit-photo img { width: 168px; height: 200px; object-fit: cover; object-position: center top; border-radius: 16px; border: 3px solid rgba(247,214,133,0.75); box-shadow: 0 0 40px -6px rgba(247,214,133,0.35); }
+.obit-candle { font-size: 4.6rem; filter: drop-shadow(0 0 24px rgba(247,214,133,0.6)); }
+.obit-body { padding: 28px 32px 28px 24px; display: flex; flex-direction: column; gap: 6px; }
+.obit-label { font-size: 0.7rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--amber-soft); }
+.obit-name { margin: 0; font-size: 2rem; line-height: 1.2; color: #fff; }
+.obit-meta { margin: 0 0 6px; color: #c9c6dc; font-size: 0.95rem; }
+.obit-service { display: flex; flex-direction: column; gap: 3px; margin: 8px 0 6px; padding: 14px 18px; border-radius: 14px; background: rgba(247,214,133,0.1); border: 1px solid rgba(247,214,133,0.35); }
+.obit-service strong { color: var(--amber-soft); font-size: 0.95rem; letter-spacing: .04em; }
+.obit-service span { color: #fff; font-size: 1rem; }
+.obit-line { margin: 0; font-size: 0.95rem; color: #dcdaea; line-height: 1.5; }
+.obit-line em { display: inline-block; min-width: 76px; font-style: normal; font-size: 0.68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--amber-soft); }
+.obit-line a { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.obit-note { margin: 8px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 1.15rem; color: #e9e3cf; }
+.obit-share { align-self: flex-start; margin-top: 12px; padding: 8px 20px; border-radius: 30px; font-size: 0.82rem; font-weight: 600; color: var(--ink); background: linear-gradient(120deg, var(--amber), var(--amber-soft)); }
+.obit-share:hover { color: var(--ink); transform: translateY(-2px); }
+.obit-verse { text-align: center; margin: 52px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 1.4rem; color: var(--ink-3); }
+.obit-verse span { display: block; margin-top: 4px; font: 600 0.75rem 'Inter', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--sapphire); font-style: normal; }
+@media (max-width: 700px) {
+  .obit-section { padding: 30px 0 0; }
+  .obit-card { grid-template-columns: 1fr; border-radius: 20px; }
+  .obit-photo { padding: 26px 20px 4px; }
+  .obit-photo img { width: 150px; height: 180px; }
+  .obit-body { padding: 14px 22px 26px; text-align: center; align-items: center; }
+  .obit-name { font-size: 1.7rem; }
+  .obit-service { align-self: stretch; }
+  .obit-line { text-align: center; }
+  .obit-line em { display: block; min-width: 0; }
+  .obit-share { align-self: center; }
+}
+.obit-preview { text-align: center; margin: 0 0 18px; padding: 10px 16px; border-radius: 12px; background: #fff4d6; border: 1px solid #f0dc9a; color: #7a5b00; font-size: 0.9rem; }
